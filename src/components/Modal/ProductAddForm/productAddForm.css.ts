@@ -51,4 +51,8 @@ export const submitButton = style({
       transform: 'translateX(-50%)',
     },
   },
+
+  ':disabled': {
+    cursor: 'not-allowed',
+  },
 });

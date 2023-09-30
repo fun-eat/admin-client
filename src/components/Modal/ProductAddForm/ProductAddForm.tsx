@@ -46,6 +46,8 @@ const ProductAddForm = ({ onClose }: ProductAddFormProps) => {
     fetchCategories();
   }, []);
 
+  const isDisabled = Object.values(productInfo).some((value) => !value);
+
   const handleValueChange: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
   > = (e) => {
@@ -103,7 +105,9 @@ const ProductAddForm = ({ onClose }: ProductAddFormProps) => {
         <label className={label}>
           <span>가격</span>
           <input
-            type='text'
+            type='number'
+            step={10}
+            min={0}
             className={formSection}
             onChange={handleValueChange}
             data-label='price'
@@ -117,7 +121,9 @@ const ProductAddForm = ({ onClose }: ProductAddFormProps) => {
             data-label='content'
           />
         </label>
-        <button className={submitButton}>상품추가</button>
+        <button className={submitButton} disabled={isDisabled}>
+          {isDisabled ? '모든 항목을 입력해주세요' : '상품추가'}
+        </button>
       </form>
     </ModalPortal>
   );
