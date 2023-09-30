@@ -1,11 +1,11 @@
-import type { ReactElement } from 'react';
+import type { ReactNode } from 'react';
 
 import NavigationBar from './NavigationBar';
 
 import { aside, main } from './layout.css';
 
 interface LayoutProps {
-  children: ReactElement | ReactElement[];
+  children: ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
