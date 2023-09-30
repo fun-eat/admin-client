@@ -1,15 +1,8 @@
-import {
-  ChangeEventHandler,
-  FormEventHandler,
-  useEffect,
-  useState,
-} from 'react';
+import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 
 import ModalPortal from '../ModalPortal';
 
-import { Category, getProductCategories } from '../../../apis/category';
 import { postProduct } from '../../../apis/product';
-import { CATEGORIES } from '../../../constants';
 
 import {
   form,
@@ -18,9 +11,7 @@ import {
   submitButton,
   textarea,
 } from './productAddForm.css';
-
-const isDevelopment = process.env.NODE_ENV === 'development';
-const INIT_CATEGORIES: Category[] = isDevelopment ? CATEGORIES : [];
+import { useCategoryContext } from '../../../hooks/context';
 
 interface ProductAddFormProps {
   onClose: () => void;
@@ -33,18 +24,7 @@ const ProductAddForm = ({ onClose }: ProductAddFormProps) => {
     content: '',
     categoryId: '',
   });
-  const [categories, setCategories] = useState<Category[]>(INIT_CATEGORIES);
-
-  useEffect(() => {
-    if (isDevelopment) return;
-
-    const fetchCategories = async () => {
-      const data = await getProductCategories();
-      setCategories(data);
-    };
-
-    fetchCategories();
-  }, []);
+  const { categories } = useCategoryContext();
 
   const isDisabled = Object.values(productInfo).some((value) => !value);
 
