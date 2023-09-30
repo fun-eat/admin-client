@@ -1,5 +1,11 @@
+import Home from './pages/Home';
+
+import { useGetCategories } from './hooks';
+
 const App = () => {
-  return <div>펀잇 레전드 어드민</div>;
+  useGetCategories();
+
+  return <Home />;
 };
 
 export default App;
