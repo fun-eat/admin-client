@@ -26,10 +26,7 @@ import { getLastProductId } from '../../utils';
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageLastIds, setPageLastIds] = useState<(number | null)[]>([
-    null,
-    null,
-  ]);
+  const [pageLastIds, setPageLastIds] = useState<(number | null)[]>([null]);
   const [lastProductId, setLastProductId] = useState<number | null>(null);
 
   const { data: products } = useProductQuery(lastProductId);
@@ -43,7 +40,7 @@ const Home = () => {
     setCurrentPage(page);
 
     if (page < currentPage) {
-      setLastProductId(pageLastIds[page]);
+      setLastProductId(pageLastIds[page - 1]);
       return;
     }
 
