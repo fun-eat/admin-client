@@ -9,6 +9,9 @@ import {
 
 import { PRODUCT_COLUMNS, PRODUCT_COLUMNS_WIDTH } from '../../constants';
 import { useDisclosure } from '../../hooks';
+import mockProducts from '../../mocks/products.json';
+import ProductRow from './components/ProductRow/ProductRow';
+
 import { addButton, tableWrapper, title, titleWrapper } from './home.css';
 
 const Home = () => {
@@ -27,7 +30,11 @@ const Home = () => {
         <Table>
           <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
           <TableHeader columns={PRODUCT_COLUMNS} />
-          <TableBody />
+          <TableBody>
+            {mockProducts.map((product) => (
+              <ProductRow key={product.id} product={product} />
+            ))}
+          </TableBody>
         </Table>
       </section>
 

@@ -41,14 +41,14 @@ export const tableBorder = style({
   },
 });
 
-export const td = styleVariants({
-  left: [tableCell, ellipsis, { textAlign: 'left' }],
-  center: [tableCell, ellipsis, { textAlign: 'center' }],
-  right: [tableCell, ellipsis, { textAlign: 'right' }],
-});
-
 export const th = styleVariants({
   left: [tableCell, tableBorder, { textAlign: 'left' }],
   center: [tableCell, tableBorder, { textAlign: 'center' }],
   right: [tableCell, tableBorder, { textAlign: 'right' }],
+});
+
+export const td = styleVariants({
+  left: [tableCell, ellipsis, { textAlign: 'left' }],
+  center: [tableCell, ellipsis, { textAlign: 'center' }],
+  right: [tableCell, ellipsis, { textAlign: 'right' }],
 });
