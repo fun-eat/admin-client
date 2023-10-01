@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import ProductRow from './components/ProductRow';
 
@@ -12,7 +12,8 @@ import {
 } from '../../components/Table';
 import Pagination from '../../components/Pagination';
 import { PRODUCT_COLUMNS, PRODUCT_COLUMNS_WIDTH } from '../../constants';
-import { useDisclosure, useGetProducts } from '../../hooks';
+import { useProductQuery } from '../../hooks/queries';
+import { useDisclosure } from '../../hooks';
 
 import {
   addButton,
@@ -26,14 +27,27 @@ import { getLastProductId } from '../../utils';
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [lastProductId, setLastProductId] = useState<number>();
+  const prevLastProductId = useRef<number>();
 
-  const products = useGetProducts(lastProductId);
+  const { data: products } = useProductQuery(lastProductId);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const onPageChange = (page: number) => {
-    const currentLastProductID = getLastProductId(products);
+  if (products === undefined) {
+    return null;
+  }
 
-    setCurrentPage(page);
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => prev - 1);
+
+    setLastProductId(prevLastProductId.current);
+    prevLastProductId.current = getLastProductId(products);
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => prev + 1);
+
+    const currentLastProductID = getLastProductId(products);
+    prevLastProductId.current = lastProductId;
     setLastProductId(currentLastProductID);
   };
 
@@ -57,7 +71,11 @@ const Home = () => {
           </TableBody>
         </Table>
         <div className={paginationWrapper}>
-          <Pagination currentPage={currentPage} onPageChange={onPageChange} />
+          <Pagination
+            currentPage={currentPage}
+            handlePrevPage={handlePrevPage}
+            handleNextPage={handleNextPage}
+          />
         </div>
       </section>
       {isOpen && <ProductAddForm onClose={onClose} />}
