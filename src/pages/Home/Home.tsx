@@ -40,19 +40,17 @@ const Home = () => {
   }
 
   const onPageChange = (page: number) => {
-    if (lastProductId === null) {
-      return;
-    }
+    setCurrentPage(page);
 
     if (page < currentPage) {
       setLastProductId(pageLastIds[page]);
+      return;
     }
 
     const currentLastProductId = getLastProductId(products);
 
     setPageLastIds((prev) => [...prev, currentLastProductId]);
     setLastProductId(currentLastProductId);
-    setCurrentPage(page);
   };
 
   return (
