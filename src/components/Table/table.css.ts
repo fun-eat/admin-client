@@ -9,7 +9,7 @@ export const table = style({
 
 export const tableCell = style({
   position: 'relative',
-  height: 50,
+  height: 60,
   padding: '0 16px',
   fontWeight: 400,
   textAlign: 'left',

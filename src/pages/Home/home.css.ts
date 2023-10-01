@@ -27,3 +27,11 @@ export const tableWrapper = style({
   marginTop: 20,
   padding: '0 20px',
 });
+
+export const paginationWrapper = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: 60,
+  marginTop: 20,
+});

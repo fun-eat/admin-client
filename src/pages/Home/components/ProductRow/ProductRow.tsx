@@ -17,10 +17,10 @@ const ProductRow = ({ product }: ProductRowProps) => {
 
   return (
     <tr>
-      <td className={td['left']}>{id}</td>
+      <td className={td['right']}>{id}</td>
       <td className={td['left']}>{name}</td>
       <td className={td['left']}>{content}</td>
-      <td className={td['left']}>{formatCurrency(price)}</td>
+      <td className={td['right']}>{formatCurrency(price)}</td>
       <td className={td['left']}>{categoryName}</td>
       <td className={td['center']}>
         <button type='button'>상세</button>
