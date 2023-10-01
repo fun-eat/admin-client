@@ -13,6 +13,7 @@ import {
 import Pagination from '../../components/Pagination';
 import { PRODUCT_COLUMNS, PRODUCT_COLUMNS_WIDTH } from '../../constants';
 import { useDisclosure, useGetProducts } from '../../hooks';
+import mockProducts from '../../mocks/products.json';
 
 import {
   addButton,
@@ -21,14 +22,20 @@ import {
   title,
   titleWrapper,
 } from './home.css';
+import { getLastProductId } from '../../utils';
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [lastProductId, setLastProductId] = useState<number>();
+
+  const products = useGetProducts(lastProductId);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const products = useGetProducts();
 
   const onPageChange = (page: number) => {
+    const currentLastProductID = getLastProductId(products);
+
     setCurrentPage(page);
+    setLastProductId(currentLastProductID);
   };
 
   return (
@@ -45,7 +52,7 @@ const Home = () => {
           <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
           <TableHeader columns={PRODUCT_COLUMNS} />
           <TableBody>
-            {products.map((product) => (
+            {mockProducts.map((product) => (
               <ProductRow key={product.id} product={product} />
             ))}
           </TableBody>
