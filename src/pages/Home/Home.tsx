@@ -13,7 +13,6 @@ import {
 import Pagination from '../../components/Pagination';
 import { PRODUCT_COLUMNS, PRODUCT_COLUMNS_WIDTH } from '../../constants';
 import { useDisclosure, useGetProducts } from '../../hooks';
-import mockProducts from '../../mocks/products.json';
 
 import {
   addButton,
@@ -52,7 +51,7 @@ const Home = () => {
           <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
           <TableHeader columns={PRODUCT_COLUMNS} />
           <TableBody>
-            {mockProducts.map((product) => (
+            {products.map((product) => (
               <ProductRow key={product.id} product={product} />
             ))}
           </TableBody>

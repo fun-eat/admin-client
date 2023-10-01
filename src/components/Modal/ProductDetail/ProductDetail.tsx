@@ -11,7 +11,7 @@ const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
     name,
     content,
     price,
-    category: { name: categoryName },
+    categoryResponse: { name: categoryName },
   } = product;
 
   return <ModalPortal onClose={onClose}>{name}</ModalPortal>;

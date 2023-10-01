@@ -5,7 +5,7 @@ export interface ProductResponse {
   name: string;
   price: number;
   content: string;
-  category: CategoryResponse;
+  categoryResponse: CategoryResponse;
 }
 
 export const getProducts = async (productId?: number) => {

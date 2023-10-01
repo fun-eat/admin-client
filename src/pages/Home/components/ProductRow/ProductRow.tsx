@@ -18,7 +18,7 @@ const ProductRow = ({ product }: ProductRowProps) => {
     name,
     content,
     price,
-    category: { name: categoryName },
+    categoryResponse: { name: categoryName },
   } = product;
 
   return (
