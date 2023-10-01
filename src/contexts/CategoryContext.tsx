@@ -1,7 +1,7 @@
 import { PropsWithChildren, createContext, useMemo, useState } from 'react';
 
 import { CategoryResponse } from '../apis/category';
-import { CATEGORIES } from '../constants';
+import mockCategories from '../mocks/categories.json';
 
 interface CategoryContextValue {
   categories: CategoryResponse[];
@@ -9,7 +9,7 @@ interface CategoryContextValue {
 }
 
 const isDevelopment = process.env.NODE_ENV === 'development';
-const INIT_CATEGORIES: CategoryResponse[] = isDevelopment ? CATEGORIES : [];
+const INIT_CATEGORIES: CategoryResponse[] = isDevelopment ? mockCategories : [];
 
 export const CategoryContext = createContext<CategoryContextValue | null>(null);
 
