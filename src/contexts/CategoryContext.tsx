@@ -1,22 +1,23 @@
 import { PropsWithChildren, createContext, useMemo, useState } from 'react';
 
-import { Category } from '../apis/category';
+import { CategoryResponse } from '../apis/category';
 import { CATEGORIES } from '../constants';
 
 interface CategoryContextValue {
-  categories: Category[];
-  addCategories: (currentCategories: Category[]) => void;
+  categories: CategoryResponse[];
+  addCategories: (currentCategories: CategoryResponse[]) => void;
 }
 
 const isDevelopment = process.env.NODE_ENV === 'development';
-const INIT_CATEGORIES: Category[] = isDevelopment ? CATEGORIES : [];
+const INIT_CATEGORIES: CategoryResponse[] = isDevelopment ? CATEGORIES : [];
 
 export const CategoryContext = createContext<CategoryContextValue | null>(null);
 
 const CategoryProvider = ({ children }: PropsWithChildren) => {
-  const [categories, setCategories] = useState<Category[]>(INIT_CATEGORIES);
+  const [categories, setCategories] =
+    useState<CategoryResponse[]>(INIT_CATEGORIES);
 
-  const addCategories = (currentCategories: Category[]) => {
+  const addCategories = (currentCategories: CategoryResponse[]) => {
     setCategories(currentCategories);
   };
 
