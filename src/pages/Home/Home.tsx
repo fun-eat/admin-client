@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import ProductRow from './components/ProductRow';
 
 import Layout from '../../components/Layout';
@@ -10,8 +12,7 @@ import {
 } from '../../components/Table';
 import Pagination from '../../components/Pagination';
 import { PRODUCT_COLUMNS, PRODUCT_COLUMNS_WIDTH } from '../../constants';
-import { useDisclosure } from '../../hooks';
-import mockProducts from '../../mocks/products.json';
+import { useDisclosure, useGetProducts } from '../../hooks';
 
 import {
   addButton,
@@ -20,11 +21,11 @@ import {
   title,
   titleWrapper,
 } from './home.css';
-import { useState } from 'react';
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const products = useGetProducts();
 
   const onPageChange = (page: number) => {
     setCurrentPage(page);
@@ -44,7 +45,7 @@ const Home = () => {
           <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
           <TableHeader columns={PRODUCT_COLUMNS} />
           <TableBody>
-            {mockProducts.map((product) => (
+            {products.map((product) => (
               <ProductRow key={product.id} product={product} />
             ))}
           </TableBody>
@@ -53,7 +54,6 @@ const Home = () => {
           <Pagination currentPage={currentPage} onPageChange={onPageChange} />
         </div>
       </section>
-
       {isOpen && <ProductAddForm onClose={onClose} />}
     </Layout>
   );

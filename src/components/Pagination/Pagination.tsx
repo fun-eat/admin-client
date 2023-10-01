@@ -15,7 +15,7 @@ const Pagination = ({ currentPage, onPageChange }: PaginationProps) => {
       >
         ﹤
       </button>
-      <span className={pageText}>Page {currentPage}</span>
+      <span className={pageText}>{currentPage}</span>
       <button
         className={arrowButton}
         onClick={() => onPageChange(currentPage + 1)}
