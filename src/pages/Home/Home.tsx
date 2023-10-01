@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import ProductRow from './components/ProductRow';
 
@@ -26,8 +26,11 @@ import { getLastProductId } from '../../utils';
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [lastProductId, setLastProductId] = useState<number>();
-  const prevLastProductId = useRef<number>();
+  const [pageLastIds, setPageLastIds] = useState<(number | null)[]>([
+    null,
+    null,
+  ]);
+  const [lastProductId, setLastProductId] = useState<number | null>(null);
 
   const { data: products } = useProductQuery(lastProductId);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,19 +39,20 @@ const Home = () => {
     return null;
   }
 
-  const handlePrevPage = () => {
-    setCurrentPage((prev) => prev - 1);
+  const onPageChange = (page: number) => {
+    if (lastProductId === null) {
+      return;
+    }
 
-    setLastProductId(prevLastProductId.current);
-    prevLastProductId.current = getLastProductId(products);
-  };
+    if (page < currentPage) {
+      setLastProductId(pageLastIds[page]);
+    }
 
-  const handleNextPage = () => {
-    setCurrentPage((prev) => prev + 1);
+    const currentLastProductId = getLastProductId(products);
 
-    const currentLastProductID = getLastProductId(products);
-    prevLastProductId.current = lastProductId;
-    setLastProductId(currentLastProductID);
+    setPageLastIds((prev) => [...prev, currentLastProductId]);
+    setLastProductId(currentLastProductId);
+    setCurrentPage(page);
   };
 
   return (
@@ -71,11 +75,7 @@ const Home = () => {
           </TableBody>
         </Table>
         <div className={paginationWrapper}>
-          <Pagination
-            currentPage={currentPage}
-            handlePrevPage={handlePrevPage}
-            handleNextPage={handleNextPage}
-          />
+          <Pagination currentPage={currentPage} onPageChange={onPageChange} />
         </div>
       </section>
       {isOpen && <ProductAddForm onClose={onClose} />}

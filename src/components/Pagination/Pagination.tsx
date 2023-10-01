@@ -2,26 +2,24 @@ import { arrowButton, pageText, pagination } from './pagination.css';
 
 interface PaginationProps {
   currentPage: number;
-  handlePrevPage: () => void;
-  handleNextPage: () => void;
+  onPageChange: (page: number) => void;
 }
 
-const Pagination = ({
-  currentPage,
-  handlePrevPage,
-  handleNextPage,
-}: PaginationProps) => {
+const Pagination = ({ currentPage, onPageChange }: PaginationProps) => {
   return (
     <div className={pagination}>
       <button
         className={arrowButton}
-        onClick={handlePrevPage}
+        onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
         ﹤
       </button>
       <span className={pageText}>{currentPage}</span>
-      <button className={arrowButton} onClick={handleNextPage}>
+      <button
+        className={arrowButton}
+        onClick={() => onPageChange(currentPage + 1)}
+      >
         ﹥
       </button>
     </div>

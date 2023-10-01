@@ -8,8 +8,8 @@ export interface ProductResponse {
   categoryResponse: CategoryResponse;
 }
 
-export const getProducts = async (productId?: number) => {
-  const query = productId ? `?productId=${productId}` : '';
+export const getProducts = async (productId: number | null) => {
+  const query = typeof productId === 'number' ? `?productId=${productId}` : '';
   const response = await fetch(`/api/admin/products${query}`);
   const data: ProductResponse[] = await response.json();
   return data;
