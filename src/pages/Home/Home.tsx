@@ -71,7 +71,7 @@ const Home = () => {
         <div className={paginationWrapper}>
           <Pagination
             currentPage={currentPage}
-            onPageChange={onPageChange(productResponses, 1)}
+            onPageChange={onPageChange(productResponses, totalElements)}
             isLastPage={lastPage}
           />
         </div>
