@@ -1,8 +1,8 @@
-import { ProductResponse } from '../../../apis/product';
+import { Product } from '../../../apis/product';
 import ModalPortal from '../ModalPortal';
 
 interface ProductDetailProps {
-  product: ProductResponse;
+  product: Product;
   onClose: () => void;
 }
 

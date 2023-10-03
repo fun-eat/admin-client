@@ -1,4 +1,4 @@
-import { ProductResponse } from '../apis/product';
+import { Product } from '../apis/product';
 
 const intl = new Intl.NumberFormat('ko-KR', {
   style: 'currency',
@@ -7,5 +7,5 @@ const intl = new Intl.NumberFormat('ko-KR', {
 
 export const formatCurrency = (price: number) => intl.format(price);
 
-export const getLastProductId = (products: ProductResponse[]) =>
+export const getLastProductId = (products: Product[]) =>
   products[products.length - 1].id;

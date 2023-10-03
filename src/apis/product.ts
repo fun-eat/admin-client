@@ -1,6 +1,6 @@
 import { CategoryResponse } from './category';
 
-export interface ProductResponse {
+export interface Product {
   id: number;
   name: string;
   price: number;
@@ -8,14 +8,19 @@ export interface ProductResponse {
   categoryResponse: CategoryResponse;
 }
 
-const convertToQueryString = (queryKey: string, value: unknown) =>
-  value ? `${queryKey}=${value}` : '';
+export interface ProductResponse {
+  lastPage: boolean;
+  productResponses: Product[];
+}
 
 export interface ProductRequestQuery {
   productId: number | null;
   name?: string;
   categoryId?: number;
 }
+
+const convertToQueryString = (queryKey: string, value: unknown) =>
+  value ? `${queryKey}=${value}` : '';
 
 export const getProducts = async ({
   productId,
@@ -30,7 +35,7 @@ export const getProducts = async ({
     .join('&')}`;
 
   const response = await fetch(`/api/admin/products${query}`);
-  const data: ProductResponse[] = await response.json();
+  const data: ProductResponse = await response.json();
   return data;
 };
 

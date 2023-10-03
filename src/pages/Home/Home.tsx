@@ -30,22 +30,23 @@ import {
 } from './home.css';
 
 const Home = () => {
+  const productSearchQuery = useProductSearchQueryValueContext();
+  const { data } = useProductQuery(productSearchQuery);
+
   const currentPage = usePageValueContext();
   const { onPageChange } = usePageActionContext();
-
-  const productSearchQuery = useProductSearchQueryValueContext();
-  const { data: products } = useProductQuery(productSearchQuery);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  if (products === undefined) {
+  if (!data) {
     return null;
   }
+
+  const { lastPage, productResponses } = data;
 
   return (
     <Layout>
       <div className={titleWrapper}>
-        <h1 className={title}>레전드 어드민 커즈하아</h1>
+        <h1 className={title}>편의점 상품</h1>
         <button type='button' className={addButton} onClick={onOpen}>
           상품 추가
         </button>
@@ -58,7 +59,7 @@ const Home = () => {
           <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
           <TableHeader columns={PRODUCT_COLUMNS} />
           <TableBody>
-            {products.map((product) => (
+            {productResponses.map((product) => (
               <ProductRow key={product.id} product={product} />
             ))}
           </TableBody>
@@ -66,7 +67,8 @@ const Home = () => {
         <div className={paginationWrapper}>
           <Pagination
             currentPage={currentPage}
-            onPageChange={onPageChange(products)}
+            onPageChange={onPageChange(productResponses)}
+            isLastPage={lastPage}
           />
         </div>
       </section>

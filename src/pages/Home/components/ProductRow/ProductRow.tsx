@@ -1,4 +1,4 @@
-import { ProductResponse } from '../../../../apis/product';
+import { Product } from '../../../../apis/product';
 import ProductDetail from '../../../../components/Modal/ProductDetail';
 import { td } from '../../../../components/Table/table.css';
 import { useDisclosure } from '../../../../hooks';
@@ -7,7 +7,7 @@ import { formatCurrency } from '../../../../utils';
 import { tr } from './productRow.css';
 
 interface ProductRowProps {
-  product: ProductResponse;
+  product: Product;
 }
 
 const ProductRow = ({ product }: ProductRowProps) => {

@@ -2,11 +2,11 @@ import { PropsWithChildren, createContext, useState } from 'react';
 import { useProductSearchQueryActionContext } from '../hooks';
 import { getLastProductId } from '../../../utils';
 
-import { ProductResponse } from '../../../apis/product';
+import { Product } from '../../../apis/product';
 
 interface PageAction {
   resetPage: () => void;
-  onPageChange: (products: ProductResponse[]) => (page: number) => void;
+  onPageChange: (products: Product[]) => (page: number) => void;
 }
 
 export const PageValueContext = createContext<number | null>(null);
@@ -26,7 +26,7 @@ const PageProvider = ({ children }: PropsWithChildren) => {
     setPageLastIds(INIT_PAGE_LAST_IDS);
   };
 
-  const onPageChange = (products: ProductResponse[]) => (page: number) => {
+  const onPageChange = (products: Product[]) => (page: number) => {
     setCurrentPage(page);
 
     if (page < currentPage) {
