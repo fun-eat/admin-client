@@ -1,20 +1,15 @@
-import { PropsWithChildren, createContext, useMemo, useState } from 'react';
+import { PropsWithChildren, createContext, useState } from 'react';
 import { useProductSearchQueryActionContext } from '../hooks';
 import { getLastProductId } from '../../../utils';
 
 import { ProductResponse } from '../../../apis/product';
-
-interface PageValue {
-  currentPage: number;
-  pageLastIds: (number | null)[];
-}
 
 interface PageAction {
   resetPage: () => void;
   onPageChange: (products: ProductResponse[]) => (page: number) => void;
 }
 
-export const PageValueContext = createContext<PageValue | null>(null);
+export const PageValueContext = createContext<number | null>(null);
 export const PageActionContext = createContext<PageAction | null>(null);
 
 const INIT_PAGE_LAST_IDS = [null];
@@ -25,14 +20,6 @@ const PageProvider = ({ children }: PropsWithChildren) => {
     useState<(number | null)[]>(INIT_PAGE_LAST_IDS);
 
   const handleValueChange = useProductSearchQueryActionContext();
-
-  const value = useMemo(
-    () => ({
-      currentPage,
-      pageLastIds,
-    }),
-    [currentPage, pageLastIds]
-  );
 
   const resetPage = () => {
     setCurrentPage(1);
@@ -60,7 +47,7 @@ const PageProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <PageActionContext.Provider value={action}>
-      <PageValueContext.Provider value={value}>
+      <PageValueContext.Provider value={currentPage}>
         {children}
       </PageValueContext.Provider>
     </PageActionContext.Provider>
