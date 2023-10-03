@@ -3,9 +3,14 @@ import { arrowButton, pageText, pagination } from './pagination.css';
 interface PaginationProps {
   currentPage: number;
   onPageChange: (page: number) => void;
+  isLastPage: boolean;
 }
 
-const Pagination = ({ currentPage, onPageChange }: PaginationProps) => {
+const Pagination = ({
+  currentPage,
+  onPageChange,
+  isLastPage,
+}: PaginationProps) => {
   return (
     <div className={pagination}>
       <button
@@ -19,6 +24,7 @@ const Pagination = ({ currentPage, onPageChange }: PaginationProps) => {
       <button
         className={arrowButton}
         onClick={() => onPageChange(currentPage + 1)}
+        disabled={isLastPage}
       >
         ﹥
       </button>

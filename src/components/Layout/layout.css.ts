@@ -11,7 +11,6 @@ export const aside = style({
 });
 
 export const main = style({
-  maxWidth: 1200,
   minHeight: '100vh',
   padding: '20px 0',
   marginLeft: 240,

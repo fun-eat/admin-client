@@ -1,6 +1,6 @@
 import { CategoryResponse } from './category';
 
-export interface ProductResponse {
+export interface Product {
   id: number;
   name: string;
   price: number;
@@ -8,10 +8,46 @@ export interface ProductResponse {
   categoryResponse: CategoryResponse;
 }
 
-export const getProducts = async (productId: number | null) => {
-  const query = typeof productId === 'number' ? `?productId=${productId}` : '';
+export interface ProductResponse {
+  lastPage: boolean;
+  totalElements: number;
+  productResponses: Product[];
+}
+
+export interface ProductRequestQuery {
+  productId: number | null;
+  name?: string;
+  categoryId?: number;
+  totalElements: number | null;
+}
+
+const convertToQueryString = (queryKey: string, value: unknown) =>
+  value ? `${queryKey}=${value}` : '';
+
+export const getProducts = async ({
+  productId,
+  name,
+  categoryId,
+  totalElements,
+}: ProductRequestQuery) => {
+  const productIdQuery = convertToQueryString('productId', productId);
+  const nameQuery = convertToQueryString('name', name);
+  const categoryIdQuery = convertToQueryString('categoryId', categoryId);
+  const totalElementsQuery = convertToQueryString(
+    'totalElements',
+    totalElements
+  );
+  const query = `?${[
+    productIdQuery,
+    nameQuery,
+    categoryIdQuery,
+    totalElementsQuery,
+  ]
+    .filter((query) => query.length > 0)
+    .join('&')}`;
+
   const response = await fetch(`/api/admin/products${query}`);
-  const data: ProductResponse[] = await response.json();
+  const data: ProductResponse = await response.json();
   return data;
 };
 

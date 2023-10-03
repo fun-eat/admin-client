@@ -1,6 +1,11 @@
-import { useState } from 'react';
-
 import ProductRow from './components/ProductRow';
+
+import SearchForm from './components/SearchForm';
+import {
+  usePageActionContext,
+  usePageValueContext,
+  useProductSearchQueryValueContext,
+} from './hooks';
 
 import Layout from '../../components/Layout';
 import { ProductAddForm } from '../../components/Modal';
@@ -18,59 +23,57 @@ import { useDisclosure } from '../../hooks';
 import {
   addButton,
   paginationWrapper,
+  searchSection,
+  tableTitle,
   tableWrapper,
   title,
   titleWrapper,
 } from './home.css';
-import { getLastProductId } from '../../utils';
 
 const Home = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageLastIds, setPageLastIds] = useState<(number | null)[]>([null]);
-  const [lastProductId, setLastProductId] = useState<number | null>(null);
+  const productSearchQuery = useProductSearchQueryValueContext();
+  const { data } = useProductQuery(productSearchQuery);
 
-  const { data: products } = useProductQuery(lastProductId);
+  const currentPage = usePageValueContext();
+  const { onPageChange } = usePageActionContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  if (products === undefined) {
+  if (!data) {
     return null;
   }
 
-  const onPageChange = (page: number) => {
-    setCurrentPage(page);
-
-    if (page < currentPage) {
-      setLastProductId(pageLastIds[page - 1]);
-      return;
-    }
-
-    const currentLastProductId = getLastProductId(products);
-
-    setPageLastIds((prev) => [...prev, currentLastProductId]);
-    setLastProductId(currentLastProductId);
-  };
+  const { lastPage, totalElements, productResponses } = data;
 
   return (
     <Layout>
       <div className={titleWrapper}>
-        <h1 className={title}>레전드 어드민 커즈하아</h1>
+        <h1 className={title}>편의점 상품</h1>
         <button type='button' className={addButton} onClick={onOpen}>
           상품 추가
         </button>
       </div>
-      <div></div>
+      <section className={searchSection}>
+        <SearchForm />
+      </section>
       <section className={tableWrapper}>
+        <h2 className={tableTitle}>
+          총 {totalElements.toLocaleString('ko-KR')}개의 상품이 검색되었습니다.
+        </h2>
         <Table>
           <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
           <TableHeader columns={PRODUCT_COLUMNS} />
           <TableBody>
-            {products.map((product) => (
+            {productResponses.map((product) => (
               <ProductRow key={product.id} product={product} />
             ))}
           </TableBody>
         </Table>
         <div className={paginationWrapper}>
-          <Pagination currentPage={currentPage} onPageChange={onPageChange} />
+          <Pagination
+            currentPage={currentPage}
+            onPageChange={onPageChange(productResponses, totalElements)}
+            isLastPage={lastPage}
+          />
         </div>
       </section>
       {isOpen && <ProductAddForm onClose={onClose} />}

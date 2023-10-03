@@ -11,7 +11,7 @@ import {
   submitButton,
   textarea,
 } from './productAddForm.css';
-import { useCategoryContext } from '../../../hooks/context';
+import { useCategoryQuery } from '../../../hooks/queries';
 
 interface ProductAddFormProps {
   onClose: () => void;
@@ -24,7 +24,7 @@ const ProductAddForm = ({ onClose }: ProductAddFormProps) => {
     content: '',
     categoryId: '',
   });
-  const { categories } = useCategoryContext();
+  const { data: categories } = useCategoryQuery();
 
   const isDisabled = Object.values(productInfo).some((value) => !value);
 
@@ -75,7 +75,7 @@ const ProductAddForm = ({ onClose }: ProductAddFormProps) => {
             data-label='categoryId'
           >
             <option value=''>카테고리를 선택하세요</option>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
               </option>
