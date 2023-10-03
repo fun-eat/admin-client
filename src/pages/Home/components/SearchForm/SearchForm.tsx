@@ -6,6 +6,7 @@ import {
 } from '../../hooks';
 
 import Input from '../../../../components/Input';
+import Select from '../../../../components/Select';
 import { useCategoryQuery } from '../../../../hooks/queries';
 
 import { searchForm, submitButton } from './searchForm.css';
@@ -17,7 +18,7 @@ const SearchForm = () => {
   const handleValueChange = useProductSearchQueryActionContext();
   const { resetPage } = usePageActionContext();
 
-  //  const { data: categories } = useCategoryQuery();
+  const { data: categories } = useCategoryQuery();
 
   const handleProductSearch: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -34,7 +35,13 @@ const SearchForm = () => {
   return (
     <form className={searchForm} onSubmit={handleProductSearch}>
       <Input label='상품명' ref={nameInputRef} />
-      <Input label='카테고리' dataLabel='categoryId' />
+      <Select label='카테고리' dataLabel='categoryId' ref={categorySelectRef}>
+        {categories?.map((category) => (
+          <option key={category.id} value={category.id}>
+            {category.name}
+          </option>
+        ))}
+      </Select>
       <button className={submitButton}>검색</button>
     </form>
   );

@@ -1,6 +1,11 @@
-import { useState } from 'react';
-
 import ProductRow from './components/ProductRow';
+
+import SearchForm from './components/SearchForm';
+import {
+  usePageActionContext,
+  usePageValueContext,
+  useProductSearchQueryValueContext,
+} from './hooks';
 
 import Layout from '../../components/Layout';
 import { ProductAddForm } from '../../components/Modal';
@@ -18,37 +23,24 @@ import { useDisclosure } from '../../hooks';
 import {
   addButton,
   paginationWrapper,
+  searchSection,
   tableWrapper,
   title,
   titleWrapper,
 } from './home.css';
-import { getLastProductId } from '../../utils';
 
 const Home = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageLastIds, setPageLastIds] = useState<(number | null)[]>([null]);
-  const [lastProductId, setLastProductId] = useState<number | null>(null);
+  const currentPage = usePageValueContext();
+  const { onPageChange } = usePageActionContext();
 
-  const { data: products } = useProductQuery(lastProductId);
+  const productSearchQuery = useProductSearchQueryValueContext();
+  const { data: products } = useProductQuery(productSearchQuery);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   if (products === undefined) {
     return null;
   }
-
-  const onPageChange = (page: number) => {
-    setCurrentPage(page);
-
-    if (page < currentPage) {
-      setLastProductId(pageLastIds[page - 1]);
-      return;
-    }
-
-    const currentLastProductId = getLastProductId(products);
-
-    setPageLastIds((prev) => [...prev, currentLastProductId]);
-    setLastProductId(currentLastProductId);
-  };
 
   return (
     <Layout>
@@ -58,7 +50,9 @@ const Home = () => {
           상품 추가
         </button>
       </div>
-      <div></div>
+      <section className={searchSection}>
+        <SearchForm />
+      </section>
       <section className={tableWrapper}>
         <Table>
           <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
@@ -70,7 +64,10 @@ const Home = () => {
           </TableBody>
         </Table>
         <div className={paginationWrapper}>
-          <Pagination currentPage={currentPage} onPageChange={onPageChange} />
+          <Pagination
+            currentPage={currentPage}
+            onPageChange={onPageChange(products)}
+          />
         </div>
       </section>
       {isOpen && <ProductAddForm onClose={onClose} />}

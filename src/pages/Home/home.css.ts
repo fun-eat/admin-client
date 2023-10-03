@@ -22,9 +22,22 @@ export const addButton = style({
   borderRadius: 4,
 });
 
+export const searchSection = style({
+  padding: '0 20px',
+  marginTop: 20,
+});
+
+export const searchForm = style({
+  display: 'flex',
+  gap: 10,
+  padding: '20px 0',
+  borderTop: '1px solid #ccc',
+  borderBottom: '1px solid #ccc',
+});
+
 export const tableWrapper = style({
   width: '100%',
-  marginTop: 20,
+  marginTop: 60,
   padding: '0 20px',
 });
 
