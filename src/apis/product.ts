@@ -10,6 +10,7 @@ export interface Product {
 
 export interface ProductResponse {
   lastPage: boolean;
+  totalElements: number;
   productResponses: Product[];
 }
 
@@ -17,6 +18,7 @@ export interface ProductRequestQuery {
   productId: number | null;
   name?: string;
   categoryId?: number;
+  totalElements: number | null;
 }
 
 const convertToQueryString = (queryKey: string, value: unknown) =>
@@ -26,11 +28,21 @@ export const getProducts = async ({
   productId,
   name,
   categoryId,
+  totalElements,
 }: ProductRequestQuery) => {
   const productIdQuery = convertToQueryString('productId', productId);
   const nameQuery = convertToQueryString('name', name);
   const categoryIdQuery = convertToQueryString('categoryId', categoryId);
-  const query = `?${[productIdQuery, nameQuery, categoryIdQuery]
+  const totalElementsQuery = convertToQueryString(
+    'totalElements',
+    totalElements
+  );
+  const query = `?${[
+    productIdQuery,
+    nameQuery,
+    categoryIdQuery,
+    totalElementsQuery,
+  ]
     .filter((query) => query.length > 0)
     .join('&')}`;
 

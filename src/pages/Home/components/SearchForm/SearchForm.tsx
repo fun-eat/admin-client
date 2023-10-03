@@ -28,7 +28,12 @@ const SearchForm = () => {
     const name = nameInputRef.current.value;
     const categoryId = Number(categorySelectRef.current.value);
 
-    handleValueChange({ name, categoryId, productId: null });
+    handleValueChange({
+      name,
+      categoryId,
+      productId: null,
+      totalElements: null,
+    });
     resetPage();
   };
 

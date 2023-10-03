@@ -6,7 +6,10 @@ import { Product } from '../../../apis/product';
 
 interface PageAction {
   resetPage: () => void;
-  onPageChange: (products: Product[]) => (page: number) => void;
+  onPageChange: (
+    products: Product[],
+    totalElements: number
+  ) => (page: number) => void;
 }
 
 export const PageValueContext = createContext<number | null>(null);
@@ -26,19 +29,20 @@ const PageProvider = ({ children }: PropsWithChildren) => {
     setPageLastIds(INIT_PAGE_LAST_IDS);
   };
 
-  const onPageChange = (products: Product[]) => (page: number) => {
-    setCurrentPage(page);
+  const onPageChange =
+    (products: Product[], totalElements: number) => (page: number) => {
+      setCurrentPage(page);
 
-    if (page < currentPage) {
-      handleValueChange({ productId: pageLastIds[page - 1] });
-      return;
-    }
+      if (page < currentPage) {
+        handleValueChange({ productId: pageLastIds[page - 1], totalElements });
+        return;
+      }
 
-    const currentLastProductId = getLastProductId(products);
+      const currentLastProductId = getLastProductId(products);
 
-    setPageLastIds((prev) => [...prev, currentLastProductId]);
-    handleValueChange({ productId: currentLastProductId });
-  };
+      setPageLastIds((prev) => [...prev, currentLastProductId]);
+      handleValueChange({ productId: currentLastProductId, totalElements });
+    };
 
   const action = {
     resetPage,

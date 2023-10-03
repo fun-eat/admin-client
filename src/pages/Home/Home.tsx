@@ -24,6 +24,7 @@ import {
   addButton,
   paginationWrapper,
   searchSection,
+  tableTitle,
   tableWrapper,
   title,
   titleWrapper,
@@ -41,7 +42,7 @@ const Home = () => {
     return null;
   }
 
-  const { lastPage, productResponses } = data;
+  const { lastPage, totalElements, productResponses } = data;
 
   return (
     <Layout>
@@ -55,6 +56,9 @@ const Home = () => {
         <SearchForm />
       </section>
       <section className={tableWrapper}>
+        <h2 className={tableTitle}>
+          총 {totalElements.toLocaleString('ko-KR')}개의 상품이 검색되었습니다.
+        </h2>
         <Table>
           <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
           <TableHeader columns={PRODUCT_COLUMNS} />
@@ -67,7 +71,7 @@ const Home = () => {
         <div className={paginationWrapper}>
           <Pagination
             currentPage={currentPage}
-            onPageChange={onPageChange(productResponses)}
+            onPageChange={onPageChange(productResponses, 1)}
             isLastPage={lastPage}
           />
         </div>
