@@ -4,9 +4,11 @@ export const searchForm = style({
   display: 'flex',
   alignItems: 'center',
   gap: 20,
-  padding: '20px 0',
+  width: '100%',
+  padding: '30px 0',
   borderTop: '1px solid #ccc',
   borderBottom: '1px solid #ccc',
+  overflowX: 'auto',
 });
 
 export const submitButton = style({

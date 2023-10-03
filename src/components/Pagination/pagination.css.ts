@@ -15,6 +15,10 @@ export const arrowButton = style({
   fontSize: 14,
   border: '1px solid #ccc',
   borderRadius: 4,
+
+  ':disabled': {
+    cursor: 'not-allowed',
+  },
 });
 
 export const pageText = style({
