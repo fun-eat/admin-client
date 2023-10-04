@@ -1,7 +1,7 @@
 import { FormEventHandler, useMemo, useState } from 'react';
 
 import ProductInfoForm from '../ProductInfoForm';
-import { Product } from '../../../../apis/product';
+import { Product, putProduct } from '../../../../apis/product';
 import {
   useProductInfoActionContext,
   useProductInfoValueContext,
@@ -58,8 +58,7 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
     }
 
     try {
-      console.log(product, productInfo);
-      // TODO: 상품 수정 API 호출
+      putProduct(product.id, productInfo);
       onClose();
     } catch {
       alert('상품 수정 실패');

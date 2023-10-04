@@ -5,7 +5,7 @@ import {
   useState,
 } from 'react';
 
-interface ProductInfoValue {
+export interface ProductInfo {
   name: string;
   price: number;
   content: string;
@@ -16,13 +16,11 @@ interface ProductInfoAction {
   handleValueChange: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
   >;
-  setCurrentProductInfo: (productInfo: ProductInfoValue) => void;
+  setCurrentProductInfo: (productInfo: ProductInfo) => void;
   resetProductInfo: () => void;
 }
 
-export const ProductInfoValueContext = createContext<ProductInfoValue | null>(
-  null
-);
+export const ProductInfoValueContext = createContext<ProductInfo | null>(null);
 export const ProductInfoActionContext = createContext<ProductInfoAction | null>(
   null
 );
@@ -46,7 +44,7 @@ const ProductInfoProvider = ({ children }: PropsWithChildren) => {
     }));
   };
 
-  const setCurrentProductInfo = (productInfo: ProductInfoValue) => {
+  const setCurrentProductInfo = (productInfo: ProductInfo) => {
     setProductInfo(productInfo);
   };
 
