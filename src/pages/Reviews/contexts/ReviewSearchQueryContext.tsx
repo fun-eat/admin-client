@@ -13,6 +13,7 @@ const ReviewSearchQueryProvider = ({ children }: PropsWithChildren) => {
     useState<ReviewRequestQuery>({
       id: null,
       totalElements: null,
+      prePage: 0,
     });
 
   const handleValueChange = (query: ReviewRequestQuery) => {

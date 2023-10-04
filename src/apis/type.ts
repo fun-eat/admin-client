@@ -6,5 +6,6 @@ export interface ResponseData {
 export interface RequestQuery {
   id: number | null;
   totalElements: number | null;
+  prePage: number;
   [key: string]: string | number | null | undefined;
 }

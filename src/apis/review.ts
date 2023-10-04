@@ -21,7 +21,7 @@ export interface ReviewRequestQuery extends RequestQuery {
   from?: string;
   to?: string;
   totalElements: number | null;
-  prePage?: number;
+  prePage: number;
 }
 
 export const getReviews = async ({

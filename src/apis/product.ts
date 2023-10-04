@@ -22,6 +22,7 @@ export interface ProductRequestQuery extends RequestQuery {
   name?: string;
   categoryId?: number;
   totalElements: number | null;
+  prePage: number;
 }
 
 export const getProducts = async ({

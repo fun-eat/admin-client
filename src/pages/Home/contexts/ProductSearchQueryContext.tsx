@@ -13,6 +13,7 @@ const ProductSearchQueryProvider = ({ children }: PropsWithChildren) => {
     useState<ProductRequestQuery>({
       id: null,
       totalElements: null,
+      prePage: 0,
     });
 
   const handleValueChange = (query: ProductRequestQuery) => {

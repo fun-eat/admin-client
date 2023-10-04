@@ -36,14 +36,22 @@ const PageProvider = ({ children }: PropsWithChildren) => {
       setCurrentPage(page);
 
       if (page < currentPage) {
-        handleValueChange({ id: pageLastIds[page - 1], totalElements });
+        handleValueChange({
+          id: pageLastIds[page - 1],
+          totalElements,
+          prePage: page - 1,
+        });
         return;
       }
 
       const currentLastProductId = getLastId(data);
 
       setPageLastIds((prev) => [...prev, currentLastProductId]);
-      handleValueChange({ id: currentLastProductId, totalElements });
+      handleValueChange({
+        id: currentLastProductId,
+        totalElements,
+        prePage: currentPage,
+      });
     };
 
   const action = {

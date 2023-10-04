@@ -31,6 +31,7 @@ const SearchForm = () => {
       name,
       categoryId,
       totalElements: null,
+      prePage: 0,
     });
     resetPage();
   };
