@@ -37,7 +37,7 @@ const ProductRow = ({ product }: ProductRowProps) => {
         <td className={td['right']}>{formatCurrency(price)}</td>
         <td className={td['left']}>{categoryName}</td>
       </tr>
-      {isOpen && <ProductDetailModal onClose={onClose} />}
+      {isOpen && <ProductDetailModal product={product} onClose={onClose} />}
     </>
   );
 };
