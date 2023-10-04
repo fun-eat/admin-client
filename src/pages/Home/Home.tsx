@@ -7,7 +7,7 @@ import {
   useProductSearchQueryValueContext,
 } from './hooks';
 
-import Layout from '../../components/Layout';
+import Layout from '../Layout';
 import ProductAddModal from './components/ProductAddModal';
 import {
   Colgroup,
