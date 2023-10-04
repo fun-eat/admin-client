@@ -1,4 +1,5 @@
 import { ProductInfo } from '../pages/Home/contexts';
+import { convertToQueryString } from '../utils';
 import { CategoryResponse } from './category';
 
 export interface Product {
@@ -21,9 +22,6 @@ export interface ProductRequestQuery {
   categoryId?: number;
   totalElements: number | null;
 }
-
-const convertToQueryString = (queryKey: string, value: unknown) =>
-  value ? `${queryKey}=${value}` : '';
 
 export const getProducts = async ({
   productId,
