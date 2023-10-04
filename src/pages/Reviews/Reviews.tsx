@@ -1,18 +1,29 @@
+import ReviewRow from './components/ReviewRow';
+import { useReviewSearchQueryActionContext } from './hooks';
+
 import {
   Colgroup,
   Table,
   TableBody,
   TableHeader,
 } from '../../components/Table';
+import Pagination from '../../components/Pagination';
+import {
+  usePageActionContext,
+  usePageValueContext,
+} from '../../hooks/contexts';
 import { REVIEW_COLUMNS, REVIEW_COLUMNS_WIDTH } from '../../constants';
-import ReviewRow from './components/ReviewRow';
+import { useReviewQuery } from '../../hooks/queries';
 
 import { container, section, tableTitle, title } from './reviews.css';
 
-import { useReviewQuery } from '../../hooks/queries';
-
 const Reviews = () => {
   const { data } = useReviewQuery();
+
+  const currentPage = usePageValueContext();
+  const { onPageChange } = usePageActionContext();
+
+  const handleValueChange = useReviewSearchQueryActionContext();
 
   if (!data) {
     return null;
@@ -37,6 +48,18 @@ const Reviews = () => {
           </TableBody>
         </Table>
       </section>
+      <div className={section}>
+        <Pagination
+          currentPage={currentPage}
+          onPageChange={onPageChange(
+            reviewResponses,
+            totalElements,
+            handleValueChange,
+            'reviewId'
+          )}
+          isLastPage={lastPage}
+        />
+      </div>
     </div>
   );
 };

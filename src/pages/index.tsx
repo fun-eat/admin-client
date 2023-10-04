@@ -2,11 +2,12 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import Home from './Home';
 import Layout from './Layout';
+import Reviews from './Reviews';
 
+import { ROUTE } from '../constants';
 import PageProvider from '../contexts/PageContext';
 import ProductSearchQueryProvider from './Home/contexts/ProductSearchQueryContext';
-import { ROUTE } from '../constants';
-import Reviews from './Reviews';
+import ReviewSearchQueryProvider from './Reviews/contexts/ReviewSearchQueryContext';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,13 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTE.REVIEW,
-        element: <Reviews />,
+        element: (
+          <ReviewSearchQueryProvider>
+            <PageProvider>
+              <Reviews />
+            </PageProvider>
+          </ReviewSearchQueryProvider>
+        ),
       },
     ],
   },
