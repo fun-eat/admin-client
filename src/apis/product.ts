@@ -17,31 +17,26 @@ export interface ProductResponse {
 }
 
 export interface ProductRequestQuery {
-  productId: number | null;
+  id: number | null;
   name?: string;
   categoryId?: number;
   totalElements: number | null;
 }
 
 export const getProducts = async ({
-  productId,
+  id,
   name,
   categoryId,
   totalElements,
 }: ProductRequestQuery) => {
-  const productIdQuery = convertToQueryString('productId', productId);
+  const idQuery = convertToQueryString('id', id);
   const nameQuery = convertToQueryString('name', name);
   const categoryIdQuery = convertToQueryString('categoryId', categoryId);
   const totalElementsQuery = convertToQueryString(
     'totalElements',
     totalElements
   );
-  const query = `?${[
-    productIdQuery,
-    nameQuery,
-    categoryIdQuery,
-    totalElementsQuery,
-  ]
+  const query = `?${[idQuery, nameQuery, categoryIdQuery, totalElementsQuery]
     .filter((query) => query.length > 0)
     .join('&')}`;
 

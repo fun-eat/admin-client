@@ -15,24 +15,24 @@ export interface ReviewResponse {
 }
 
 export interface ReviewRequestQuery {
-  reviewId: number | null;
+  id: number | null;
   productId?: number;
-  from: string;
-  to: string;
+  from?: string;
+  to?: string;
   totalElements: number | null;
   prePage?: number;
 }
 
 export const getReviews = async ({
-  reviewId,
+  id,
   productId,
   from,
   to,
   totalElements,
   prePage,
 }: ReviewRequestQuery) => {
+  const idQuery = convertToQueryString('idd', id);
   const productIdQuery = convertToQueryString('productId', productId);
-  const reviewIdQuery = convertToQueryString('reviewId', reviewId);
   const fromQuery = convertToQueryString('from', from);
   const toQuery = convertToQueryString('to', to);
   const totalElementsQuery = convertToQueryString(
@@ -42,7 +42,7 @@ export const getReviews = async ({
   const prePageQuery = convertToQueryString('prePage', prePage);
   const query = `?${[
     productIdQuery,
-    reviewIdQuery,
+    idQuery,
     fromQuery,
     toQuery,
     totalElementsQuery,
