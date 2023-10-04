@@ -13,3 +13,13 @@ export const PRODUCT_COLUMNS: Column[] = [
   { id: 4, name: '가격', align: 'right' },
   { id: 5, name: '카테고리' },
 ];
+
+export const ROUTE = {
+  HOME: '/',
+  REVIEW: '/reviews',
+};
+
+export const ROUTES = [
+  { path: ROUTE.HOME, name: '상품' },
+  { path: ROUTE.REVIEW, name: '리뷰' },
+];

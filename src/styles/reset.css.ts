@@ -31,3 +31,7 @@ globalStyle('table', {
   borderCollapse: 'collapse',
   borderSpacing: 0,
 });
+
+globalStyle('ul, ol, li', {
+  listStyle: 'none',
+});

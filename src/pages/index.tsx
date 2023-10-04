@@ -5,14 +5,25 @@ import Layout from './Layout';
 
 import PageProvider from './Home/contexts/PageContext';
 import ProductSearchQueryProvider from './Home/contexts/ProductSearchQueryContext';
+import { ROUTE } from '../constants';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: ROUTE.HOME,
     element: <Layout />,
     children: [
       {
         index: true,
+        element: (
+          <ProductSearchQueryProvider>
+            <PageProvider>
+              <Home />
+            </PageProvider>
+          </ProductSearchQueryProvider>
+        ),
+      },
+      {
+        path: ROUTE.REVIEW,
         element: (
           <ProductSearchQueryProvider>
             <PageProvider>
