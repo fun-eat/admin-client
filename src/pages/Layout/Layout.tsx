@@ -1,20 +1,18 @@
-import type { ReactNode } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import NavigationBar from './NavigationBar';
 
 import { aside, main } from './layout.css';
 
-interface LayoutProps {
-  children: ReactNode;
-}
-
-const Layout = ({ children }: LayoutProps) => {
+const Layout = () => {
   return (
     <div>
       <aside className={aside}>
         <NavigationBar />
       </aside>
-      <main className={main}>{children}</main>
+      <main className={main}>
+        <Outlet />
+      </main>
     </div>
   );
 };

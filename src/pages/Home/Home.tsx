@@ -2,12 +2,10 @@ import ProductRow from './components/ProductRow';
 import SearchForm from './components/SearchForm';
 import ProductInfoProvider from './contexts/ProductInfoContext';
 import {
-  usePageActionContext,
-  usePageValueContext,
+  useProductSearchQueryActionContext,
   useProductSearchQueryValueContext,
 } from './hooks';
 
-import Layout from '../../components/Layout';
 import ProductAddModal from './components/ProductAddModal';
 import {
   Colgroup,
@@ -29,6 +27,10 @@ import {
   title,
   titleWrapper,
 } from './home.css';
+import {
+  usePageActionContext,
+  usePageValueContext,
+} from '../../hooks/contexts';
 
 const Home = () => {
   const productSearchQuery = useProductSearchQueryValueContext();
@@ -38,6 +40,8 @@ const Home = () => {
   const { onPageChange } = usePageActionContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const handleValueChange = useProductSearchQueryActionContext();
+
   if (!data) {
     return null;
   }
@@ -45,7 +49,7 @@ const Home = () => {
   const { lastPage, totalElements, productResponses } = data;
 
   return (
-    <Layout>
+    <>
       <div className={titleWrapper}>
         <h1 className={title}>편의점 상품</h1>
         <button type='button' className={addButton} onClick={onOpen}>
@@ -73,7 +77,11 @@ const Home = () => {
         <div className={paginationWrapper}>
           <Pagination
             currentPage={currentPage}
-            onPageChange={onPageChange(productResponses, totalElements)}
+            onPageChange={onPageChange(
+              productResponses,
+              totalElements,
+              handleValueChange
+            )}
             isLastPage={lastPage}
           />
         </div>
@@ -83,7 +91,7 @@ const Home = () => {
           <ProductAddModal onClose={onClose} />
         </ProductInfoProvider>
       )}
-    </Layout>
+    </>
   );
 };
 

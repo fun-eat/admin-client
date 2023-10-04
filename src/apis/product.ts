@@ -1,7 +1,9 @@
 import { ProductInfo } from '../pages/Home/contexts';
+import { convertToQueryString } from '../utils';
 import { CategoryResponse } from './category';
+import { RequestQuery, ResponseData } from './type';
 
-export interface Product {
+export interface Product extends ResponseData {
   id: number;
   name: string;
   price: number;
@@ -15,34 +17,35 @@ export interface ProductResponse {
   productResponses: Product[];
 }
 
-export interface ProductRequestQuery {
-  productId: number | null;
+export interface ProductRequestQuery extends RequestQuery {
+  id: number | null;
   name?: string;
   categoryId?: number;
   totalElements: number | null;
+  prePage: number;
 }
 
-const convertToQueryString = (queryKey: string, value: unknown) =>
-  value ? `${queryKey}=${value}` : '';
-
 export const getProducts = async ({
-  productId,
+  id,
   name,
   categoryId,
   totalElements,
+  prePage,
 }: ProductRequestQuery) => {
-  const productIdQuery = convertToQueryString('productId', productId);
+  const idQuery = convertToQueryString('id', id);
   const nameQuery = convertToQueryString('name', name);
   const categoryIdQuery = convertToQueryString('categoryId', categoryId);
   const totalElementsQuery = convertToQueryString(
     'totalElements',
     totalElements
   );
+  const prePageQuery = convertToQueryString('prePage', prePage);
   const query = `?${[
-    productIdQuery,
+    idQuery,
     nameQuery,
     categoryIdQuery,
     totalElementsQuery,
+    prePageQuery,
   ]
     .filter((query) => query.length > 0)
     .join('&')}`;

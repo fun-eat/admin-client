@@ -1,13 +1,11 @@
 import { FormEventHandler, useRef } from 'react';
 
-import {
-  usePageActionContext,
-  useProductSearchQueryActionContext,
-} from '../../hooks';
+import { useProductSearchQueryActionContext } from '../../hooks';
 
 import Input from '../../../../components/Input';
 import Select from '../../../../components/Select';
 import { useCategoryQuery } from '../../../../hooks/queries';
+import { usePageActionContext } from '../../../../hooks/contexts';
 
 import { searchForm, submitButton } from './searchForm.css';
 
@@ -29,10 +27,11 @@ const SearchForm = () => {
     const categoryId = Number(categorySelectRef.current.value);
 
     handleValueChange({
+      id: null,
       name,
       categoryId,
-      productId: null,
       totalElements: null,
+      prePage: 0,
     });
     resetPage();
   };

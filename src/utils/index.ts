@@ -1,4 +1,4 @@
-import { Product } from '../apis/product';
+import dayjs from 'dayjs';
 
 const intl = new Intl.NumberFormat('ko-KR', {
   style: 'currency',
@@ -7,5 +7,8 @@ const intl = new Intl.NumberFormat('ko-KR', {
 
 export const formatCurrency = (price: number) => intl.format(price);
 
-export const getLastProductId = (products: Product[]) =>
-  products[products.length - 1].id;
+export const convertToDate = (date: string) =>
+  dayjs(date).format('YYYY.MM.DD HH:mm:ss');
+
+export const convertToQueryString = (queryKey: string, value: unknown) =>
+  value !== null && value !== undefined ? `${queryKey}=${value}` : '';

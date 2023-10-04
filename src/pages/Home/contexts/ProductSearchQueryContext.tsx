@@ -11,8 +11,9 @@ export const ProductSearchQueryActionContext =
 const ProductSearchQueryProvider = ({ children }: PropsWithChildren) => {
   const [productSearchQuery, setProductSearchQuery] =
     useState<ProductRequestQuery>({
-      productId: null,
+      id: null,
       totalElements: null,
+      prePage: 0,
     });
 
   const handleValueChange = (query: ProductRequestQuery) => {
