@@ -6,8 +6,7 @@ interface PageAction {
   onPageChange: (
     data: ResponseData[],
     totalElements: number,
-    handleValueChange: (query: RequestQuery) => void,
-    key?: string
+    handleValueChange: (query: RequestQuery) => void
   ) => (page: number) => void;
 }
 
@@ -15,8 +14,7 @@ export const PageValueContext = createContext<number | null>(null);
 export const PageActionContext = createContext<PageAction | null>(null);
 
 const INIT_PAGE_LAST_IDS = [null];
-const getLastId = (data: ResponseData[], key: string) =>
-  data[data.length - 1][key] as number;
+const getLastId = (data: ResponseData[]) => data[data.length - 1].id as number;
 
 const PageProvider = ({ children }: PropsWithChildren) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,8 +30,7 @@ const PageProvider = ({ children }: PropsWithChildren) => {
     (
       data: ResponseData[],
       totalElements: number,
-      handleValueChange: (query: RequestQuery) => void,
-      key = 'id'
+      handleValueChange: (query: RequestQuery) => void
     ) =>
     (page: number) => {
       setCurrentPage(page);
@@ -43,7 +40,7 @@ const PageProvider = ({ children }: PropsWithChildren) => {
         return;
       }
 
-      const currentLastProductId = getLastId(data, key);
+      const currentLastProductId = getLastId(data);
 
       setPageLastIds((prev) => [...prev, currentLastProductId]);
       handleValueChange({ id: currentLastProductId, totalElements });

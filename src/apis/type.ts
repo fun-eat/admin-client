@@ -1,4 +1,5 @@
 export interface ResponseData {
+  id: number;
   [key: string]: string | number | object;
 }
 

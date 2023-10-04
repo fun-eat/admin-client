@@ -43,7 +43,7 @@ const Reviews = () => {
           <TableHeader columns={REVIEW_COLUMNS} />
           <TableBody>
             {reviewResponses.map((review) => (
-              <ReviewRow key={review.reviewId} review={review} />
+              <ReviewRow key={review.id} review={review} />
             ))}
           </TableBody>
         </Table>
@@ -54,8 +54,7 @@ const Reviews = () => {
           onPageChange={onPageChange(
             reviewResponses,
             totalElements,
-            handleValueChange,
-            'reviewId'
+            handleValueChange
           )}
           isLastPage={lastPage}
         />

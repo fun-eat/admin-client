@@ -2,7 +2,7 @@ import { convertToQueryString } from '../utils';
 import { RequestQuery, ResponseData } from './type';
 
 export interface Review extends ResponseData {
-  reviewId: number;
+  id: number;
   userName: string;
   content: string;
   productName: string;
