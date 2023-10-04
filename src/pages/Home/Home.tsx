@@ -59,15 +59,17 @@ const Home = () => {
         <h2 className={tableTitle}>
           총 {totalElements.toLocaleString('ko-KR')}개의 상품이 검색되었습니다.
         </h2>
-        <Table>
-          <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
-          <TableHeader columns={PRODUCT_COLUMNS} />
-          <TableBody>
-            {productResponses.map((product) => (
-              <ProductRow key={product.id} product={product} />
-            ))}
-          </TableBody>
-        </Table>
+        <ProductInfoProvider>
+          <Table>
+            <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
+            <TableHeader columns={PRODUCT_COLUMNS} />
+            <TableBody>
+              {productResponses.map((product) => (
+                <ProductRow key={product.id} product={product} />
+              ))}
+            </TableBody>
+          </Table>
+        </ProductInfoProvider>
         <div className={paginationWrapper}>
           <Pagination
             currentPage={currentPage}

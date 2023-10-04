@@ -36,7 +36,8 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
     [product]
   );
   const productInfo = useProductInfoValueContext();
-  const { setCurrentProductInfo } = useProductInfoActionContext();
+  const { setCurrentProductInfo, resetProductInfo } =
+    useProductInfoActionContext();
 
   const isDisabled = Object.values(productInfo).some((value) => !value);
   const isNotingChanged = Object.entries(productInfo).every(
@@ -59,6 +60,7 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
 
     try {
       putProduct(product.id, productInfo);
+      resetProductInfo();
       onClose();
     } catch {
       alert('상품 수정 실패');
