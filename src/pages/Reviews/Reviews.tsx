@@ -1,5 +1,8 @@
 import ReviewRow from './components/ReviewRow';
-import { useReviewSearchQueryActionContext } from './hooks';
+import {
+  useReviewSearchQueryActionContext,
+  useReviewSearchQueryValueContext,
+} from './hooks';
 
 import {
   Colgroup,
@@ -18,7 +21,8 @@ import { useReviewQuery } from '../../hooks/queries';
 import { container, section, tableTitle, title } from './reviews.css';
 
 const Reviews = () => {
-  const { data } = useReviewQuery();
+  const reviewSearchQuery = useReviewSearchQueryValueContext();
+  const { data } = useReviewQuery(reviewSearchQuery);
 
   const currentPage = usePageValueContext();
   const { onPageChange } = usePageActionContext();
