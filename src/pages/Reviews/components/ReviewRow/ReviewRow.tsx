@@ -7,11 +7,11 @@ interface ReviewRowProps {
 }
 
 const ReviewRow = ({ review }: ReviewRowProps) => {
-  const { reviewId, userName, content, productName, createdAt } = review;
+  const { id, userName, content, productName, createdAt } = review;
 
   return (
     <tr>
-      <td className={td['right']}>{reviewId}</td>
+      <td className={td['right']}>{id}</td>
       <td className={td['left']}>{userName}</td>
       <td className={td['left']}>{content}</td>
       <td className={td['left']}>{productName}</td>
