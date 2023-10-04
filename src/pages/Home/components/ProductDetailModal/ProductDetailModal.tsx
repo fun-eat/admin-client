@@ -1,4 +1,4 @@
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler, useMemo, useState } from 'react';
 
 import ProductInfoForm from '../ProductInfoForm';
 import { Product } from '../../../../apis/product';
@@ -9,53 +9,60 @@ import {
 
 import ModalPortal from '../../../../components/ModalPortal/ModalPortal';
 
-import { buttonWrapper, formContainer, button } from './productDetailModal.css';
+import {
+  buttonWrapper,
+  formContainer,
+  button,
+  editButton,
+} from './productDetailModal.css';
 
 interface ProductDetailModalProps {
   product: Product;
   onClose: () => void;
 }
 
+const formId = 'product-detail-form';
+
 const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
   const [isReadOnly, setIsReadOnly] = useState(true);
 
+  const currentProductInfo = useMemo(
+    () => ({
+      name: product.name,
+      content: product.content,
+      price: product.price,
+      categoryId: product.categoryResponse.id,
+    }),
+    [product]
+  );
   const productInfo = useProductInfoValueContext();
   const { setCurrentProductInfo } = useProductInfoActionContext();
 
-  const formId = 'product-detail-form';
   const isDisabled = Object.values(productInfo).some((value) => !value);
+  const isNotingChanged = Object.entries(productInfo).every(
+    ([key, value]) =>
+      value === currentProductInfo[key as keyof typeof productInfo]
+  );
 
   const handleCancelEdit = () => {
-    const {
-      name,
-      content,
-      price,
-      categoryResponse: { id: categoryId },
-    } = product;
-
     setIsReadOnly(true);
-    setCurrentProductInfo({ name, content, price, categoryId });
+    setCurrentProductInfo(currentProductInfo);
   };
 
   const handleProductEdit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
+    if (isNotingChanged) {
+      alert('변경 사항이 없습니다');
+      return;
+    }
+
     try {
+      console.log(product, productInfo);
       // TODO: 상품 수정 API 호출
       onClose();
     } catch {
       alert('상품 수정 실패');
-    }
-  };
-
-  const handleProductDelete = () => {
-    if (window.confirm('정말로 삭제하시겠습니까?')) {
-      try {
-        // TODO: 상품 삭제 API 호출
-        onClose();
-      } catch {
-        alert('상품 삭제 실패');
-      }
     }
   };
 
@@ -67,33 +74,31 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
           onSubmit={handleProductEdit}
           readOnly={isReadOnly}
         />
-        {isReadOnly ? (
-          <div className={buttonWrapper}>
+
+        <div className={buttonWrapper}>
+          {isReadOnly ? (
             <button
               type='button'
-              className={button}
+              className={editButton}
               onClick={() => setIsReadOnly(false)}
             >
               수정
             </button>
-            <button
-              type='button'
-              className={button}
-              onClick={handleProductDelete}
-            >
-              삭제
-            </button>
-          </div>
-        ) : (
-          <div className={buttonWrapper}>
-            <button className={button} disabled={isDisabled}>
-              {isDisabled ? '모든 항목을 입력해주세요' : '상품 수정'}
-            </button>
-            <button type='button' className={button} onClick={handleCancelEdit}>
-              수정 취소
-            </button>
-          </div>
-        )}
+          ) : (
+            <>
+              <button
+                type='button'
+                className={button}
+                onClick={handleCancelEdit}
+              >
+                수정 취소
+              </button>
+              <button className={button} form={formId} disabled={isDisabled}>
+                {isDisabled ? '수정 불가' : '상품 수정'}
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </ModalPortal>
   );

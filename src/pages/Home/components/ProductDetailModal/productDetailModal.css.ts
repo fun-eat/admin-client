@@ -12,7 +12,7 @@ export const buttonWrapper = style({
   left: '50%',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'space-between',
   gap: 20,
   width: 'calc(100% - 60px)',
   transform: 'translateX(-50%)',
@@ -26,3 +26,5 @@ export const button = style({
   border: '1px solid #ccc',
   borderRadius: 4,
 });
+
+export const editButton = style([button, { marginLeft: 'auto' }]);
