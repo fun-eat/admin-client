@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Home from './Home';
 import Layout from './Layout';
 
-import PageProvider from './Home/contexts/PageContext';
+import PageProvider from '../contexts/PageContext';
 import ProductSearchQueryProvider from './Home/contexts/ProductSearchQueryContext';
 import { ROUTE } from '../constants';
 import Reviews from './Reviews';

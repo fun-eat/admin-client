@@ -2,8 +2,7 @@ import ProductRow from './components/ProductRow';
 import SearchForm from './components/SearchForm';
 import ProductInfoProvider from './contexts/ProductInfoContext';
 import {
-  usePageActionContext,
-  usePageValueContext,
+  useProductSearchQueryActionContext,
   useProductSearchQueryValueContext,
 } from './hooks';
 
@@ -28,6 +27,10 @@ import {
   title,
   titleWrapper,
 } from './home.css';
+import {
+  usePageActionContext,
+  usePageValueContext,
+} from '../../hooks/contexts';
 
 const Home = () => {
   const productSearchQuery = useProductSearchQueryValueContext();
@@ -36,6 +39,8 @@ const Home = () => {
   const currentPage = usePageValueContext();
   const { onPageChange } = usePageActionContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleValueChange = useProductSearchQueryActionContext();
 
   if (!data) {
     return null;
@@ -72,7 +77,11 @@ const Home = () => {
         <div className={paginationWrapper}>
           <Pagination
             currentPage={currentPage}
-            onPageChange={onPageChange(productResponses, totalElements)}
+            onPageChange={onPageChange(
+              productResponses,
+              totalElements,
+              handleValueChange
+            )}
             isLastPage={lastPage}
           />
         </div>

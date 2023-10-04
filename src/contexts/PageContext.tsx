@@ -1,14 +1,19 @@
 import { PropsWithChildren, createContext, useState } from 'react';
-import { useProductSearchQueryActionContext } from '../hooks';
-import { getLastProductId } from '../../../utils';
 
-import { Product } from '../../../apis/product';
+import { getLastId } from '../utils';
+
+interface RequestQuery {
+  id: number | null;
+  totalElements: number | null;
+  [key: string]: unknown;
+}
 
 interface PageAction {
   resetPage: () => void;
-  onPageChange: (
-    products: Product[],
-    totalElements: number
+  onPageChange: <D extends { id: number | null }>(
+    data: D[],
+    totalElements: number,
+    handleValueChange: (query: RequestQuery) => void
   ) => (page: number) => void;
 }
 
@@ -22,26 +27,29 @@ const PageProvider = ({ children }: PropsWithChildren) => {
   const [pageLastIds, setPageLastIds] =
     useState<(number | null)[]>(INIT_PAGE_LAST_IDS);
 
-  const handleValueChange = useProductSearchQueryActionContext();
-
   const resetPage = () => {
     setCurrentPage(1);
     setPageLastIds(INIT_PAGE_LAST_IDS);
   };
 
   const onPageChange =
-    (products: Product[], totalElements: number) => (page: number) => {
+    <D extends { id: number | null }>(
+      data: D[],
+      totalElements: number,
+      handleValueChange: (query: RequestQuery) => void
+    ) =>
+    (page: number) => {
       setCurrentPage(page);
 
       if (page < currentPage) {
-        handleValueChange({ productId: pageLastIds[page - 1], totalElements });
+        handleValueChange({ id: pageLastIds[page - 1], totalElements });
         return;
       }
 
-      const currentLastProductId = getLastProductId(products);
+      const currentLastProductId = getLastId(data);
 
       setPageLastIds((prev) => [...prev, currentLastProductId]);
-      handleValueChange({ productId: currentLastProductId, totalElements });
+      handleValueChange({ id: currentLastProductId, totalElements });
     };
 
   const action = {
