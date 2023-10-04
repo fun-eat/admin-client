@@ -6,5 +6,4 @@ export const form = style({
   flexDirection: 'column',
   gap: 30,
   height: '100%',
-  padding: 30,
 });

@@ -1,6 +1,6 @@
 import ProductRow from './components/ProductRow';
-
 import SearchForm from './components/SearchForm';
+import ProductInfoProvider from './contexts/ProductInfoContext';
 import {
   usePageActionContext,
   usePageValueContext,
@@ -8,7 +8,7 @@ import {
 } from './hooks';
 
 import Layout from '../../components/Layout';
-import { ProductAddForm } from '../../components/Modal';
+import ProductAddModal from './components/ProductAddModal';
 import {
   Colgroup,
   Table,
@@ -76,7 +76,11 @@ const Home = () => {
           />
         </div>
       </section>
-      {isOpen && <ProductAddForm onClose={onClose} />}
+      {isOpen && (
+        <ProductInfoProvider>
+          <ProductAddModal onClose={onClose} />
+        </ProductInfoProvider>
+      )}
     </Layout>
   );
 };

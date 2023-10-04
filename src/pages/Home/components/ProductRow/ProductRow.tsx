@@ -1,5 +1,5 @@
 import { Product } from '../../../../apis/product';
-import ProductDetail from '../../../../components/Modal/ProductDetail';
+import ProductDetail from '../../../../components/ModalPortal/ProductDetail';
 import { td } from '../../../../components/Table/table.css';
 import { useDisclosure } from '../../../../hooks';
 import { formatCurrency } from '../../../../utils';

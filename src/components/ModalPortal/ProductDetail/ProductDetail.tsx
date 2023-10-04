@@ -1,4 +1,5 @@
 import { Product } from '../../../apis/product';
+import ProductInfoForm from '../../../pages/Home/components/ProductInfoForm';
 import ModalPortal from '../ModalPortal';
 
 interface ProductDetailProps {
@@ -14,7 +15,11 @@ const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
     categoryResponse: { name: categoryName },
   } = product;
 
-  return <ModalPortal onClose={onClose}>{name}</ModalPortal>;
+  return (
+    <ModalPortal onClose={onClose}>
+      <ProductInfoForm />
+    </ModalPortal>
+  );
 };
 
 export default ProductDetail;
