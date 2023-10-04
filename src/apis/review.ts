@@ -32,7 +32,7 @@ export const getReviews = async ({
   totalElements,
   prePage,
 }: ReviewRequestQuery) => {
-  const idQuery = convertToQueryString('idd', id);
+  const idQuery = convertToQueryString('id', id);
   const productIdQuery = convertToQueryString('productId', productId);
   const fromQuery = convertToQueryString('from', from);
   const toQuery = convertToQueryString('to', to);
