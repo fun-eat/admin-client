@@ -6,6 +6,7 @@ import Layout from './Layout';
 import PageProvider from './Home/contexts/PageContext';
 import ProductSearchQueryProvider from './Home/contexts/ProductSearchQueryContext';
 import { ROUTE } from '../constants';
+import Reviews from './Reviews';
 
 const router = createBrowserRouter([
   {
@@ -24,13 +25,7 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTE.REVIEW,
-        element: (
-          <ProductSearchQueryProvider>
-            <PageProvider>
-              <Home />
-            </PageProvider>
-          </ProductSearchQueryProvider>
-        ),
+        element: <Reviews />,
       },
     ],
   },
