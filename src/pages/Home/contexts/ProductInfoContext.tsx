@@ -7,7 +7,7 @@ import {
 
 interface ProductInfoValue {
   name: string;
-  price: string;
+  price: number;
   content: string;
   categoryId: number;
 }
@@ -29,7 +29,7 @@ export const ProductInfoActionContext = createContext<ProductInfoAction | null>(
 
 const INIT_PRODUCT_INFO = {
   name: '',
-  price: '',
+  price: 0,
   content: '',
   categoryId: 0,
 };
@@ -38,16 +38,11 @@ const ProductInfoProvider = ({ children }: PropsWithChildren) => {
   const [productInfo, setProductInfo] = useState(INIT_PRODUCT_INFO);
 
   const handleValueChange: ProductInfoAction['handleValueChange'] = (e) => {
-    const {
-      dataset: { label },
-      value,
-    } = e.target;
-
-    if (!label) return;
+    const { name, value } = e.target;
 
     setProductInfo((prev) => ({
       ...prev,
-      [label]: value,
+      [name]: value,
     }));
   };
 

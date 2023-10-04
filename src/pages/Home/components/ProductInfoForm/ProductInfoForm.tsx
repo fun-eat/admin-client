@@ -32,14 +32,14 @@ const ProductInfoForm = ({
     <form id={id} className={form} onSubmit={onSubmit}>
       <Input
         label='상품명'
-        dataLabel='name'
+        name='name'
+        value={name}
         onChange={handleValueChange}
         readOnly={readOnly}
       />
       <Select
         label='카테고리'
-        dataLabel='categoryId'
-        value={name}
+        name='categoryId'
         onChange={handleValueChange}
         disabled={readOnly}
       >
@@ -55,14 +55,14 @@ const ProductInfoForm = ({
       </Select>
       <Input
         label='가격'
-        dataLabel='price'
+        name='price'
         value={price}
         onChange={handleValueChange}
         readOnly={readOnly}
       />
       <Textarea
         label='상품설명'
-        dataLabel='content'
+        name='content'
         value={content}
         onChange={handleValueChange}
         readOnly={readOnly}
