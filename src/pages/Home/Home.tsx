@@ -1,6 +1,6 @@
 import ProductRow from './components/ProductRow';
-
 import SearchForm from './components/SearchForm';
+import ProductInfoProvider from './contexts/ProductInfoContext';
 import {
   usePageActionContext,
   usePageValueContext,
@@ -8,7 +8,7 @@ import {
 } from './hooks';
 
 import Layout from '../../components/Layout';
-import { ProductAddForm } from '../../components/Modal';
+import ProductAddModal from './components/ProductAddModal';
 import {
   Colgroup,
   Table,
@@ -59,15 +59,17 @@ const Home = () => {
         <h2 className={tableTitle}>
           총 {totalElements.toLocaleString('ko-KR')}개의 상품이 검색되었습니다.
         </h2>
-        <Table>
-          <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
-          <TableHeader columns={PRODUCT_COLUMNS} />
-          <TableBody>
-            {productResponses.map((product) => (
-              <ProductRow key={product.id} product={product} />
-            ))}
-          </TableBody>
-        </Table>
+        <ProductInfoProvider>
+          <Table>
+            <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
+            <TableHeader columns={PRODUCT_COLUMNS} />
+            <TableBody>
+              {productResponses.map((product) => (
+                <ProductRow key={product.id} product={product} />
+              ))}
+            </TableBody>
+          </Table>
+        </ProductInfoProvider>
         <div className={paginationWrapper}>
           <Pagination
             currentPage={currentPage}
@@ -76,7 +78,11 @@ const Home = () => {
           />
         </div>
       </section>
-      {isOpen && <ProductAddForm onClose={onClose} />}
+      {isOpen && (
+        <ProductInfoProvider>
+          <ProductAddModal onClose={onClose} />
+        </ProductInfoProvider>
+      )}
     </Layout>
   );
 };

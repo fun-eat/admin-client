@@ -40,7 +40,7 @@ const SearchForm = () => {
   return (
     <form className={searchForm} onSubmit={handleProductSearch}>
       <Input label='상품명' ref={nameInputRef} />
-      <Select label='카테고리' dataLabel='categoryId' ref={categorySelectRef}>
+      <Select label='카테고리' ref={categorySelectRef}>
         {categories?.map((category) => (
           <option key={category.id} value={category.id}>
             {category.name}

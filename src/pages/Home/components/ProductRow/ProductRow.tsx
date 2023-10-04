@@ -1,8 +1,9 @@
 import { Product } from '../../../../apis/product';
-import ProductDetail from '../../../../components/Modal/ProductDetail';
+import ProductDetailModal from '../ProductDetailModal';
 import { td } from '../../../../components/Table/table.css';
 import { useDisclosure } from '../../../../hooks';
 import { formatCurrency } from '../../../../utils';
+import { useProductInfoActionContext } from '../../hooks';
 
 import { tr } from './productRow.css';
 
@@ -12,25 +13,31 @@ interface ProductRowProps {
 
 const ProductRow = ({ product }: ProductRowProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { setCurrentProductInfo } = useProductInfoActionContext();
 
   const {
     id,
     name,
     content,
     price,
-    categoryResponse: { name: categoryName },
+    categoryResponse: { id: categoryId, name: categoryName },
   } = product;
+
+  const handleDetailModalOpen = () => {
+    setCurrentProductInfo({ name, content, price, categoryId });
+    onOpen();
+  };
 
   return (
     <>
-      <tr className={tr} onClick={onOpen}>
+      <tr className={tr} onClick={handleDetailModalOpen}>
         <td className={td['right']}>{id}</td>
         <td className={td['left']}>{name}</td>
         <td className={td['left']}>{content}</td>
         <td className={td['right']}>{formatCurrency(price)}</td>
         <td className={td['left']}>{categoryName}</td>
       </tr>
-      {isOpen && <ProductDetail product={product} onClose={onClose} />}
+      {isOpen && <ProductDetailModal product={product} onClose={onClose} />}
     </>
   );
 };

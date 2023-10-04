@@ -1,3 +1,4 @@
+import { ProductInfo } from '../pages/Home/contexts';
 import { CategoryResponse } from './category';
 
 export interface Product {
@@ -56,5 +57,13 @@ export const postProduct = (product: unknown) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(product),
+  });
+};
+
+export const putProduct = (productId: number, productInfo: ProductInfo) => {
+  fetch(`/api/admin/products/${productId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(productInfo),
   });
 };
