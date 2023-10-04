@@ -1,8 +1,9 @@
 import { ProductInfo } from '../pages/Home/contexts';
 import { convertToQueryString } from '../utils';
 import { CategoryResponse } from './category';
+import { RequestQuery, ResponseData } from './type';
 
-export interface Product {
+export interface Product extends ResponseData {
   id: number;
   name: string;
   price: number;
@@ -16,7 +17,7 @@ export interface ProductResponse {
   productResponses: Product[];
 }
 
-export interface ProductRequestQuery {
+export interface ProductRequestQuery extends RequestQuery {
   id: number | null;
   name?: string;
   categoryId?: number;

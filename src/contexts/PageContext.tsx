@@ -1,19 +1,13 @@
 import { PropsWithChildren, createContext, useState } from 'react';
-
-import { getLastId } from '../utils';
-
-interface RequestQuery {
-  id: number | null;
-  totalElements: number | null;
-  [key: string]: unknown;
-}
+import { RequestQuery, ResponseData } from '../apis/type';
 
 interface PageAction {
   resetPage: () => void;
-  onPageChange: <D extends { id: number | null }>(
-    data: D[],
+  onPageChange: (
+    data: ResponseData[],
     totalElements: number,
-    handleValueChange: (query: RequestQuery) => void
+    handleValueChange: (query: RequestQuery) => void,
+    key?: string
   ) => (page: number) => void;
 }
 
@@ -21,6 +15,8 @@ export const PageValueContext = createContext<number | null>(null);
 export const PageActionContext = createContext<PageAction | null>(null);
 
 const INIT_PAGE_LAST_IDS = [null];
+const getLastId = (data: ResponseData[], key: string) =>
+  data[data.length - 1][key] as number;
 
 const PageProvider = ({ children }: PropsWithChildren) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,10 +29,11 @@ const PageProvider = ({ children }: PropsWithChildren) => {
   };
 
   const onPageChange =
-    <D extends { id: number | null }>(
-      data: D[],
+    (
+      data: ResponseData[],
       totalElements: number,
-      handleValueChange: (query: RequestQuery) => void
+      handleValueChange: (query: RequestQuery) => void,
+      key = 'id'
     ) =>
     (page: number) => {
       setCurrentPage(page);
@@ -46,7 +43,7 @@ const PageProvider = ({ children }: PropsWithChildren) => {
         return;
       }
 
-      const currentLastProductId = getLastId(data);
+      const currentLastProductId = getLastId(data, key);
 
       setPageLastIds((prev) => [...prev, currentLastProductId]);
       handleValueChange({ id: currentLastProductId, totalElements });

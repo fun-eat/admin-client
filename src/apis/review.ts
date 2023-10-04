@@ -1,6 +1,7 @@
 import { convertToQueryString } from '../utils';
+import { RequestQuery, ResponseData } from './type';
 
-export interface Review {
+export interface Review extends ResponseData {
   reviewId: number;
   userName: string;
   content: string;
@@ -14,7 +15,7 @@ export interface ReviewResponse {
   reviewResponses: Review[];
 }
 
-export interface ReviewRequestQuery {
+export interface ReviewRequestQuery extends RequestQuery {
   id: number | null;
   productId?: number;
   from?: string;
