@@ -30,6 +30,7 @@ export const getProducts = async ({
   name,
   categoryId,
   totalElements,
+  prePage,
 }: ProductRequestQuery) => {
   const idQuery = convertToQueryString('id', id);
   const nameQuery = convertToQueryString('name', name);
@@ -38,7 +39,14 @@ export const getProducts = async ({
     'totalElements',
     totalElements
   );
-  const query = `?${[idQuery, nameQuery, categoryIdQuery, totalElementsQuery]
+  const prePageQuery = convertToQueryString('prePage', prePage);
+  const query = `?${[
+    idQuery,
+    nameQuery,
+    categoryIdQuery,
+    totalElementsQuery,
+    prePageQuery,
+  ]
     .filter((query) => query.length > 0)
     .join('&')}`;
 
