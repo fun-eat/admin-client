@@ -56,7 +56,10 @@ const ProductInfoForm = ({
       <Input
         label='가격'
         name='price'
+        type='number'
         value={price}
+        min={0}
+        step={10}
         onChange={handleValueChange}
         readOnly={readOnly}
       />
