@@ -1,17 +1,14 @@
 import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 
 import ModalPortal from '../ModalPortal';
+import Input from '../../Input';
+import Select from '../../Select';
+import Textarea from '../../Textarea';
 
 import { postProduct } from '../../../apis/product';
-
-import {
-  form,
-  formSection,
-  label,
-  submitButton,
-  textarea,
-} from './productAddForm.css';
 import { useCategoryQuery } from '../../../hooks/queries';
+
+import { form, submitButton } from './productAddForm.css';
 
 interface ProductAddFormProps {
   onClose: () => void;
@@ -58,49 +55,24 @@ const ProductAddForm = ({ onClose }: ProductAddFormProps) => {
   return (
     <ModalPortal onClose={onClose}>
       <form className={form} onSubmit={handleProductAdd}>
-        <label className={label}>
-          <span>상품명</span>
-          <input
-            type='text'
-            className={formSection}
-            onChange={handleValueChange}
-            data-label='name'
-          />
-        </label>
-        <label className={label}>
-          <span>카테고리</span>
-          <select
-            className={formSection}
-            onChange={handleValueChange}
-            data-label='categoryId'
-          >
-            <option value=''>카테고리를 선택하세요</option>
-            {categories?.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className={label}>
-          <span>가격</span>
-          <input
-            type='number'
-            step={10}
-            min={0}
-            className={formSection}
-            onChange={handleValueChange}
-            data-label='price'
-          />
-        </label>
-        <label className={label}>
-          <span>상품설명</span>
-          <textarea
-            className={textarea}
-            onChange={handleValueChange}
-            data-label='content'
-          />
-        </label>
+        <Input label='상품명' dataLabel='name' onChange={handleValueChange} />
+        <Select
+          label='카테고리'
+          dataLabel='categoryId'
+          onChange={handleValueChange}
+        >
+          {categories?.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </Select>
+        <Input label='가격' dataLabel='price' onChange={handleValueChange} />
+        <Textarea
+          label='상품설명'
+          dataLabel='content'
+          onChange={handleValueChange}
+        />
         <button className={submitButton} disabled={isDisabled}>
           {isDisabled ? '모든 항목을 입력해주세요' : '상품추가'}
         </button>
