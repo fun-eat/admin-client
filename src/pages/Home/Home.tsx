@@ -7,7 +7,6 @@ import {
   useProductSearchQueryValueContext,
 } from './hooks';
 
-import Layout from '../Layout';
 import ProductAddModal from './components/ProductAddModal';
 import {
   Colgroup,
@@ -45,7 +44,7 @@ const Home = () => {
   const { lastPage, totalElements, productResponses } = data;
 
   return (
-    <Layout>
+    <>
       <div className={titleWrapper}>
         <h1 className={title}>편의점 상품</h1>
         <button type='button' className={addButton} onClick={onOpen}>
@@ -83,7 +82,7 @@ const Home = () => {
           <ProductAddModal onClose={onClose} />
         </ProductInfoProvider>
       )}
-    </Layout>
+    </>
   );
 };
 
