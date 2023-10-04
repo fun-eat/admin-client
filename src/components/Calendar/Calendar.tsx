@@ -3,18 +3,18 @@ import dayjs from 'dayjs';
 
 import CalendarBody from './CalendarBody';
 
-type DateValue = (Date | null)[];
+type DateValue = (Date | undefined)[];
 
 interface DateAction {
   onClose: () => void;
-  handleApplyClick: () => void;
+  handleApply: () => void;
   handleDateChange: (dates: [Date, Date]) => void;
 }
 
-const INIT_DATE_VALUE = [null, null];
+const INIT_DATE_VALUE = [undefined, undefined];
 const INIT_DATE_ACTION = {
   onClose: () => {},
-  handleApplyClick: () => {},
+  handleApply: () => {},
   handleDateChange: () => {},
 };
 
@@ -22,39 +22,39 @@ export const DateValueContext = createContext<DateValue>(INIT_DATE_VALUE);
 export const DateActionContext = createContext<DateAction>(INIT_DATE_ACTION);
 
 interface CalendarProps {
-  dateRange: (string | null)[];
-  applyDateRange: (dateRange: (string | null)[]) => void;
+  dateRange: (string | undefined)[];
+  applyDateRange: (dateRange: (string | undefined)[]) => void;
   onClose: () => void;
 }
 
 const Calendar = ({ dateRange, applyDateRange, onClose }: CalendarProps) => {
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
 
   useEffect(() => {
     const [rangeStart, rangeEnd] = dateRange;
-    const rangeStartDate = rangeStart ? new Date(rangeStart) : null;
-    const rangeEndDate = rangeEnd ? dayjs(rangeEnd).toDate() : null;
+    const rangeStartDate = rangeStart ? new Date(rangeStart) : undefined;
+    const rangeEndDate = rangeEnd ? dayjs(rangeEnd).toDate() : undefined;
 
     setStartDate(rangeStartDate);
     setEndDate(rangeEndDate);
   }, [dateRange]);
 
-  const handleApplyClick = () => {
+  const handleApply = () => {
     const startDateValue = startDate
       ? dayjs(startDate)
           .hour(0)
           .minute(0)
           .second(0)
           .format('YYYY-MM-DD HH:mm:ss')
-      : null;
+      : undefined;
     const endDateValue = endDate
       ? dayjs(endDate)
           .hour(23)
           .minute(59)
           .second(59)
           .format('YYYY-MM-DD HH:mm:ss')
-      : null;
+      : undefined;
 
     applyDateRange([startDateValue, endDateValue]);
     onClose();
@@ -69,7 +69,7 @@ const Calendar = ({ dateRange, applyDateRange, onClose }: CalendarProps) => {
 
   const action = {
     onClose,
-    handleApplyClick,
+    handleApply,
     handleDateChange,
   };
 

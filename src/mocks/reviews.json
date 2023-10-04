@@ -1,14 +1,14 @@
 {
   "reviewResponses": [
     {
-      "reviewId": 181,
+      "id": 181,
       "userName": "Adam",
       "content": "취향이 갈리지만, 입에 머금고 되새김질을 하면 극락의 맛",
       "productName": "솔의눈P500ml",
       "createdAt": "2023-09-10T02:40:05.175626"
     },
     {
-      "reviewId": 180,
+      "id": 180,
       "userName": "탱탱",
       "content": "감자맛 가득.. 아빠가 좋아하는 과자",
       "productName": "감자깡75g",

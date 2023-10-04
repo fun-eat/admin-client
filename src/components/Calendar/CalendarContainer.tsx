@@ -6,7 +6,7 @@ import { DateActionContext, DateValueContext } from './Calendar';
 
 const CalendarContainer = ({ children }: PropsWithChildren) => {
   const [startDate, endDate] = useContext(DateValueContext);
-  const { onClose, handleApplyClick } = useContext(DateActionContext);
+  const { onClose, handleApply } = useContext(DateActionContext);
 
   return (
     <Container className='calendar'>
@@ -19,7 +19,7 @@ const CalendarContainer = ({ children }: PropsWithChildren) => {
         <button type='button' onClick={onClose}>
           닫기
         </button>
-        <button type='button' onClick={handleApplyClick}>
+        <button type='button' onClick={handleApply}>
           적용
         </button>
       </div>
