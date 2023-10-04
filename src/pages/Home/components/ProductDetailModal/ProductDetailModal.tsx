@@ -21,7 +21,7 @@ interface ProductDetailModalProps {
   onClose: () => void;
 }
 
-const formId = 'product-detail-form';
+const FORM_ID = 'product-detail-form';
 
 const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
   const [isReadOnly, setIsReadOnly] = useState(true);
@@ -71,7 +71,7 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
     <ModalPortal onClose={onClose}>
       <div className={formContainer}>
         <ProductInfoForm
-          id={formId}
+          id={FORM_ID}
           onSubmit={handleProductEdit}
           readOnly={isReadOnly}
         />
@@ -94,7 +94,7 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
               >
                 수정 취소
               </button>
-              <button className={button} form={formId} disabled={isDisabled}>
+              <button className={button} form={FORM_ID} disabled={isDisabled}>
                 {isDisabled ? '수정 불가' : '상품 수정'}
               </button>
             </>
