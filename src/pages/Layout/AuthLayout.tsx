@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 
 import { ROUTE } from '../../constants';
-import { useGetLogin } from '../../hooks/useGetLogin';
+import { useGetLogin } from '../../hooks';
 
 interface AuthLayoutProps {
   children: JSX.Element;
@@ -9,6 +9,10 @@ interface AuthLayoutProps {
 
 const AuthLayout = ({ children }: AuthLayoutProps) => {
   const isLoggedIn = useGetLogin();
+
+  if (isLoggedIn === null) {
+    return null;
+  }
 
   if (!isLoggedIn) {
     return <Navigate to={ROUTE.HOME} replace />;
