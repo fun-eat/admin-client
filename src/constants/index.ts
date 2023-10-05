@@ -1,10 +1,11 @@
 export const ROUTE = {
   HOME: '/',
+  PRODUCT: '/products',
   REVIEW: '/reviews',
 };
 
 export const ROUTES = [
-  { path: ROUTE.HOME, name: '상품' },
+  { path: ROUTE.PRODUCT, name: '상품' },
   { path: ROUTE.REVIEW, name: '리뷰' },
 ];
 

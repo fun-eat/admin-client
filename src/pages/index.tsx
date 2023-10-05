@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Products from './Products';
 import Layout from './Layout';
+import Home from './Home';
+import Products from './Products';
 import Reviews from './Reviews';
 
 import { ROUTE } from '../constants';
@@ -12,11 +13,16 @@ import ReviewSearchQueryProvider from './Reviews/contexts/ReviewSearchQueryConte
 const router = createBrowserRouter([
   {
     path: ROUTE.HOME,
+    element: <Home />,
+    errorElement: <div>Not Found</div>,
+  },
+  {
+    path: ROUTE.HOME,
     element: <Layout />,
     errorElement: <div>Not Found</div>,
     children: [
       {
-        index: true,
+        path: ROUTE.PRODUCT,
         element: (
           <ProductSearchQueryProvider>
             <PageProvider>
