@@ -14,4 +14,6 @@ export const convertToDateWithoutTime = (date: Date | string) =>
   dayjs(date).format('YYYY.MM.DD');
 
 export const convertToQueryString = (queryKey: string, value: unknown) =>
-  value !== null && value !== undefined ? `${queryKey}=${value}` : '';
+  value !== null && value !== undefined && value !== ''
+    ? `${queryKey}=${value}`
+    : '';
