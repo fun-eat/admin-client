@@ -2,8 +2,9 @@ import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 import Input from '../../components/Input';
 
 import { container, form, submitButton, title } from './home.css';
-import { useNavigate } from 'react-router-dom';
-import { useLoginMutation } from '../../hooks/queries';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useLoginMutation, useLoginQuery } from '../../hooks/queries';
+import { ROUTE } from '../../constants';
 
 const Home = () => {
   const [memberInfo, setMemberInfo] = useState({
@@ -12,6 +13,11 @@ const Home = () => {
   });
   const navigate = useNavigate();
   const { mutate } = useLoginMutation();
+  const { data: isLoggedIn } = useLoginQuery();
+
+  if (isLoggedIn) {
+    return <Navigate to={ROUTE.PRODUCT} replace />;
+  }
 
   const handleValueChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.currentTarget;

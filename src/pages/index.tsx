@@ -9,6 +9,7 @@ import { ROUTE } from '../constants';
 import PageProvider from '../contexts/PageContext';
 import ProductSearchQueryProvider from './Products/contexts/ProductSearchQueryContext';
 import ReviewSearchQueryProvider from './Reviews/contexts/ReviewSearchQueryContext';
+import AuthLayout from './Layout/AuthLayout';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTE.HOME,
-    element: <Layout />,
+    element: (
+      <AuthLayout>
+        <Layout />
+      </AuthLayout>
+    ),
     errorElement: <div>Not Found</div>,
     children: [
       {
