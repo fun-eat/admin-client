@@ -7,7 +7,13 @@ import router from './pages';
 
 import './styles/index.css';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 const main = async () => {
   if (process.env.NODE_ENV === 'development') {

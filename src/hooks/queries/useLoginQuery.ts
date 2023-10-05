@@ -6,6 +6,6 @@ export const useLoginQuery = () => {
   return useQuery({
     queryKey: ['login'],
     queryFn: () => getLogin(),
-    retry: false,
+    cacheTime: 30 * 60 * 1000,
   });
 };
