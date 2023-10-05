@@ -5,7 +5,7 @@ import { useProductQuery } from '../../../../hooks/queries';
 import {
   useProductSearchQueryActionContext,
   useProductSearchQueryValueContext,
-} from '../../../Home/hooks';
+} from '../../../Products/hooks';
 
 import {
   container,

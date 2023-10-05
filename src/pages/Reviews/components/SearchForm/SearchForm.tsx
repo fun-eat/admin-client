@@ -4,7 +4,7 @@ import ProductSearchModal from '../ProductSearchModal';
 
 import Calendar from '../../../../components/Calendar';
 import PageProvider from '../../../../contexts/PageContext';
-import ProductSearchQueryProvider from '../../../Home/contexts/ProductSearchQueryContext';
+import ProductSearchQueryProvider from '../../../Products/contexts/ProductSearchQueryContext';
 import { useReviewSearchQueryActionContext } from '../../hooks';
 import { useDisclosure } from '../../../../hooks';
 import { convertToDateWithoutTime } from '../../../../utils';

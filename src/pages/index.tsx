@@ -1,12 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Home from './Home';
+import Products from './Products';
 import Layout from './Layout';
 import Reviews from './Reviews';
 
 import { ROUTE } from '../constants';
 import PageProvider from '../contexts/PageContext';
-import ProductSearchQueryProvider from './Home/contexts/ProductSearchQueryContext';
+import ProductSearchQueryProvider from './Products/contexts/ProductSearchQueryContext';
 import ReviewSearchQueryProvider from './Reviews/contexts/ReviewSearchQueryContext';
 
 const router = createBrowserRouter([
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         element: (
           <ProductSearchQueryProvider>
             <PageProvider>
-              <Home />
+              <Products />
             </PageProvider>
           </ProductSearchQueryProvider>
         ),

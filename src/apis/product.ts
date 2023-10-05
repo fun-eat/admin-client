@@ -1,4 +1,4 @@
-import { ProductInfo } from '../pages/Home/contexts';
+import { ProductInfo } from '../pages/Products/contexts';
 import { convertToQueryString } from '../utils';
 import { CategoryResponse } from './category';
 import { RequestQuery, ResponseData } from './type';

@@ -26,13 +26,13 @@ import {
   tableWrapper,
   title,
   titleWrapper,
-} from './home.css';
+} from './products.css';
 import {
   usePageActionContext,
   usePageValueContext,
 } from '../../hooks/contexts';
 
-const Home = () => {
+const Products = () => {
   const productSearchQuery = useProductSearchQueryValueContext();
   const { data } = useProductQuery(productSearchQuery);
 
@@ -95,4 +95,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Products;
