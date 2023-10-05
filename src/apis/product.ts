@@ -56,7 +56,7 @@ export const getProducts = async ({
 };
 
 export const postProduct = (product: unknown) => {
-  fetch('/api/admin/products', {
+  return fetch('/api/admin/products', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(product),
@@ -64,7 +64,7 @@ export const postProduct = (product: unknown) => {
 };
 
 export const putProduct = (productId: number, productInfo: ProductInfo) => {
-  fetch(`/api/admin/products/${productId}`, {
+  return fetch(`/api/admin/products/${productId}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(productInfo),
