@@ -1,4 +1,5 @@
 import ReviewRow from './components/ReviewRow';
+import SearchForm from './components/SearchForm';
 import {
   useReviewSearchQueryActionContext,
   useReviewSearchQueryValueContext,
@@ -19,9 +20,6 @@ import { REVIEW_COLUMNS, REVIEW_COLUMNS_WIDTH } from '../../constants';
 import { useReviewQuery } from '../../hooks/queries';
 
 import { container, section, tableTitle, title } from './reviews.css';
-import Calendar from '../../components/Calendar';
-import { useDisclosure } from '../../hooks';
-import { convertToDateWithoutTime } from '../../utils';
 
 import mockReviewResponses from '../../mocks/reviews.json';
 
@@ -31,7 +29,6 @@ const Reviews = () => {
 
   const currentPage = usePageValueContext();
   const { onPageChange } = usePageActionContext();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleValueChange = useReviewSearchQueryActionContext();
 
@@ -40,30 +37,12 @@ const Reviews = () => {
   //}
 
   //const { lastPage, totalElements, reviewResponses } = data;
-  const dateRange = [reviewSearchQuery.from, reviewSearchQuery.to];
-
-  const applyDateRange = (dateRange: (string | undefined)[]) => {
-    const [from, to] = dateRange;
-
-    handleValueChange({ ...reviewSearchQuery, from, to });
-  };
 
   return (
     <div className={container}>
       <h1 className={title}>리뷰</h1>
-      <section>
-        <button type='button' className='date-button' onClick={onOpen}>
-          {dateRange[0] ? convertToDateWithoutTime(dateRange[0]) : '시작 날짜'}{' '}
-          ~{' '}
-          {dateRange[1] ? convertToDateWithoutTime(dateRange[1]) : '종료 날짜'}
-        </button>
-        {isOpen && (
-          <Calendar
-            dateRange={dateRange}
-            applyDateRange={applyDateRange}
-            onClose={onClose}
-          />
-        )}
+      <section className={section}>
+        <SearchForm />
       </section>
       <section className={section}>
         <h2 className={tableTitle}>

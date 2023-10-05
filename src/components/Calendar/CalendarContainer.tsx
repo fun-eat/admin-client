@@ -20,7 +20,7 @@ const CalendarContainer = ({ children }: PropsWithChildren) => {
         <button type='button' onClick={onClose}>
           닫기
         </button>
-        <button type='button' onClick={handleApply}>
+        <button type='button' className='apply' onClick={handleApply}>
           적용
         </button>
       </div>
