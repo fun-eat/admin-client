@@ -5,6 +5,7 @@ import { Product } from '../../../../apis/product';
 import {
   useProductInfoActionContext,
   useProductInfoValueContext,
+  useProductSearchQueryActionContext,
 } from '../../hooks';
 
 import ModalPortal from '../../../../components/ModalPortal/ModalPortal';
@@ -18,6 +19,7 @@ import {
 import { useProductEditMutation } from '../../../../hooks/queries';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../../constants';
+import { usePageActionContext } from '../../../../hooks/contexts';
 
 interface ProductDetailModalProps {
   product: Product;
@@ -43,6 +45,8 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
   const productInfo = useProductInfoValueContext();
   const { setCurrentProductInfo, resetProductInfo } =
     useProductInfoActionContext();
+  const { resetPage } = usePageActionContext();
+  const { handleValueChange } = useProductSearchQueryActionContext();
 
   const isDisabled = Object.values(productInfo).some((value) => !value);
   const isNotingChanged = Object.entries(productInfo).every(
@@ -66,6 +70,12 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
     mutate(productInfo, {
       onSuccess: () => {
         resetProductInfo();
+        handleValueChange({
+          id: null,
+          totalElements: null,
+          prePage: 0,
+        });
+        resetPage();
         onClose();
       },
       onError: (error) => {

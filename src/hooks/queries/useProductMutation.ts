@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import {
   ProductAddRequestBody,
@@ -13,12 +13,7 @@ export const useProductAddMutation = () => {
 };
 
 export const useProductEditMutation = (productId: number) => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (body: ProductAddRequestBody) => putProduct(productId, body),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] });
-    },
   });
 };
