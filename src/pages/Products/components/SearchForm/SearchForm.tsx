@@ -1,4 +1,4 @@
-import { FormEventHandler, useState } from 'react';
+import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 
 import {
   useProductSearchQueryActionContext,
@@ -16,23 +16,30 @@ const SearchForm = () => {
   const { name, categoryId } = useProductSearchQueryValueContext();
 
   const [currentName, setCurrentName] = useState(name);
-  const [currentCategoryId, setCurrentCategoryId] = useState(categoryId ?? '');
+  const [currentCategoryId, setCurrentCategoryId] = useState(categoryId);
 
   const { handleValueChange } = useProductSearchQueryActionContext();
   const { resetPage } = usePageActionContext();
 
   const { data: categories } = useCategoryQuery();
 
+  const handleCategoryIdChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const { value } = e.target;
+    const categoryIdNumber = parseInt(value, 10);
+    const targetCategoryId = isNaN(categoryIdNumber)
+      ? undefined
+      : categoryIdNumber;
+
+    setCurrentCategoryId(targetCategoryId);
+  };
+
   const handleProductSearch: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-
-    const categoryId =
-      typeof currentCategoryId === 'number' ? currentCategoryId : undefined;
 
     handleValueChange({
       id: null,
       name: currentName,
-      categoryId,
+      categoryId: currentCategoryId,
       totalElements: null,
       prePage: 0,
     });
@@ -46,10 +53,7 @@ const SearchForm = () => {
         value={currentName}
         onChange={({ currentTarget: { value } }) => setCurrentName(value)}
       />
-      <Select
-        label='카테고리'
-        onChange={({ target: { value } }) => setCurrentCategoryId(value)}
-      >
+      <Select label='카테고리' onChange={handleCategoryIdChange}>
         {categories?.map((category) => (
           <option key={category.id} value={category.id}>
             {category.name}
