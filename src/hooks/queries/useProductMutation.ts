@@ -1,4 +1,4 @@
-import { QueryClient, useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import {
   ProductAddRequestBody,
@@ -7,7 +7,7 @@ import {
 } from '../../apis/product';
 
 export const useProductAddMutation = () => {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (body: ProductAddRequestBody) => postProduct(body),
@@ -18,7 +18,7 @@ export const useProductAddMutation = () => {
 };
 
 export const useProductEditMutation = (productId: number) => {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (body: ProductAddRequestBody) => putProduct(productId, body),
