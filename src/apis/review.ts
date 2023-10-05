@@ -1,4 +1,5 @@
 import { convertToQueryString } from '../utils';
+import { fetchApi } from './fetchApi';
 import { RequestQuery, ResponseData } from './type';
 
 export interface Review extends ResponseData {
@@ -52,7 +53,9 @@ export const getReviews = async ({
     .filter((query) => query.length > 0)
     .join('&')}`;
 
-  const response = await fetch(`/api/admin/reviews${query}`);
+  const response = await fetchApi(`/api/admin/reviews${query}`, {
+    method: 'GET',
+  });
   const data: ReviewResponse = await response.json();
   return data;
 };

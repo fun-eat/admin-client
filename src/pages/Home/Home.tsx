@@ -29,8 +29,12 @@ const Home = () => {
       onSuccess: () => {
         navigate('/products');
       },
-      onError: () => {
-        alert('로그인 실패');
+      onError: (error) => {
+        if (error instanceof Error) {
+          alert(error.message);
+          return;
+        }
+        alert('로그인에 실패했습니다.');
       },
     });
   };
