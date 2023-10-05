@@ -20,15 +20,20 @@ import { REVIEW_COLUMNS, REVIEW_COLUMNS_WIDTH } from '../../constants';
 import { useReviewQuery } from '../../hooks/queries';
 
 import { container, section, tableTitle, title } from './reviews.css';
+import ErrorComponent from '../../components/ErrorComponent';
 
 const Reviews = () => {
   const reviewSearchQuery = useReviewSearchQueryValueContext();
-  const { data } = useReviewQuery(reviewSearchQuery);
+  const { data, error } = useReviewQuery(reviewSearchQuery);
 
   const currentPage = usePageValueContext();
   const { onPageChange } = usePageActionContext();
 
   const handleValueChange = useReviewSearchQueryActionContext();
+
+  if (error) {
+    return <ErrorComponent error={error} />;
+  }
 
   if (!data) {
     return null;

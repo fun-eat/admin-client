@@ -31,16 +31,21 @@ import {
   usePageActionContext,
   usePageValueContext,
 } from '../../hooks/contexts';
+import ErrorComponent from '../../components/ErrorComponent';
 
 const Products = () => {
   const productSearchQuery = useProductSearchQueryValueContext();
-  const { data } = useProductQuery(productSearchQuery);
+  const { data, error } = useProductQuery(productSearchQuery);
 
   const currentPage = usePageValueContext();
   const { onPageChange } = usePageActionContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleValueChange = useProductSearchQueryActionContext();
+
+  if (error) {
+    return <ErrorComponent error={error} />;
+  }
 
   if (!data) {
     return null;
