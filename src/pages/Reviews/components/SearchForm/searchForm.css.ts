@@ -1,17 +1,20 @@
 import { style } from '@vanilla-extract/css';
 
+export const container = style({
+  position: 'relative',
+  padding: '30px 0',
+  borderTop: '1px solid #ccc',
+  borderBottom: '1px solid #ccc',
+});
+
 export const searchForm = style({
   display: 'flex',
   alignItems: 'center',
   gap: 20,
-  width: '100%',
-  padding: '30px 0',
-  borderTop: '1px solid #ccc',
-  borderBottom: '1px solid #ccc',
-  overflowX: 'auto',
 });
 
 export const wrapper = style({
+  position: 'relative',
   display: 'flex',
   flexDirection: 'column',
   gap: 10,

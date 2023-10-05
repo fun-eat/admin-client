@@ -87,8 +87,8 @@
 
 .calendar {
   position: absolute;
-  top: 200px;
-  right: 20px !important;
+  top: 0;
+  right: 0;
   z-index: 910;
   background: #fff;
   border-radius: 10px;

@@ -16,6 +16,7 @@ import {
   submitButton,
   wrapper,
   productNameText,
+  container,
 } from './searchForm.css';
 
 interface ProductSearch {
@@ -65,7 +66,7 @@ const SearchForm = () => {
   };
 
   return (
-    <>
+    <div className={container}>
       <form className={searchForm} onSubmit={handleReviewSearch}>
         <div className={wrapper}>
           <span>상품명</span>
@@ -108,7 +109,7 @@ const SearchForm = () => {
           </PageProvider>
         </ProductSearchQueryProvider>
       )}
-    </>
+    </div>
   );
 };
 
