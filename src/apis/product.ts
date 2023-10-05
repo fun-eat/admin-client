@@ -1,4 +1,3 @@
-import { ProductInfo } from '../pages/Products/contexts';
 import { convertToQueryString } from '../utils';
 import { CategoryResponse } from './category';
 import { fetchApi } from './fetchApi';
@@ -24,6 +23,13 @@ export interface ProductRequestQuery extends RequestQuery {
   categoryId?: number;
   totalElements: number | null;
   prePage: number;
+}
+
+export interface ProductAddRequestBody {
+  name: string;
+  price: number;
+  content: string;
+  categoryId?: number;
 }
 
 export const getProducts = async ({
@@ -58,7 +64,7 @@ export const getProducts = async ({
   return data;
 };
 
-export const postProduct = (product: unknown) => {
+export const postProduct = (product: ProductAddRequestBody) => {
   return fetchApi('/api/admin/products', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -66,7 +72,10 @@ export const postProduct = (product: unknown) => {
   });
 };
 
-export const putProduct = (productId: number, productInfo: ProductInfo) => {
+export const putProduct = (
+  productId: number,
+  productInfo: ProductAddRequestBody
+) => {
   return fetchApi(`/api/admin/products/${productId}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },

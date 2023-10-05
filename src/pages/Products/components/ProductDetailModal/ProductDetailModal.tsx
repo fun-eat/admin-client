@@ -1,7 +1,7 @@
 import { FormEventHandler, useMemo, useState } from 'react';
 
 import ProductInfoForm from '../ProductInfoForm';
-import { Product, putProduct } from '../../../../apis/product';
+import { Product } from '../../../../apis/product';
 import {
   useProductInfoActionContext,
   useProductInfoValueContext,
@@ -15,6 +15,9 @@ import {
   button,
   editButton,
 } from './productDetailModal.css';
+import { useProductEditMutation } from '../../../../hooks/queries';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '../../../../constants';
 
 interface ProductDetailModalProps {
   product: Product;
@@ -25,6 +28,8 @@ const FORM_ID = 'product-detail-form';
 
 const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
   const [isReadOnly, setIsReadOnly] = useState(true);
+  const { mutate } = useProductEditMutation(product.id);
+  const navigate = useNavigate();
 
   const currentProductInfo = useMemo(
     () => ({
@@ -58,13 +63,28 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
       return;
     }
 
-    try {
-      putProduct(product.id, productInfo);
-      resetProductInfo();
-      onClose();
-    } catch {
-      alert('상품 수정 실패');
-    }
+    mutate(productInfo, {
+      onSuccess: () => {
+        resetProductInfo();
+        onClose();
+      },
+      onError: (error) => {
+        if (error instanceof Response) {
+          if (error.status === 401) {
+            alert('로그인이 필요합니다.');
+            navigate(ROUTE.HOME, { replace: true });
+            return;
+          }
+        }
+
+        if (error instanceof Error) {
+          alert(error.message);
+          return;
+        }
+
+        alert('상품 수정에 실패했습니다.');
+      },
+    });
   };
 
   return (

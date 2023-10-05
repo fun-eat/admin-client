@@ -4,23 +4,18 @@ import {
   createContext,
   useState,
 } from 'react';
-
-export interface ProductInfo {
-  name: string;
-  price: number;
-  content: string;
-  categoryId?: number;
-}
+import { ProductAddRequestBody } from '../../../apis/product';
 
 interface ProductInfoAction {
   handleValueChange: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
   >;
-  setCurrentProductInfo: (productInfo: ProductInfo) => void;
+  setCurrentProductInfo: (productInfo: ProductAddRequestBody) => void;
   resetProductInfo: () => void;
 }
 
-export const ProductInfoValueContext = createContext<ProductInfo | null>(null);
+export const ProductInfoValueContext =
+  createContext<ProductAddRequestBody | null>(null);
 export const ProductInfoActionContext = createContext<ProductInfoAction | null>(
   null
 );
@@ -43,7 +38,7 @@ const ProductInfoProvider = ({ children }: PropsWithChildren) => {
     }));
   };
 
-  const setCurrentProductInfo = (productInfo: ProductInfo) => {
+  const setCurrentProductInfo = (productInfo: ProductAddRequestBody) => {
     setProductInfo(productInfo);
   };
 

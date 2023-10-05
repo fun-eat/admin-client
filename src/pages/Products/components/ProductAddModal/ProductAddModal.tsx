@@ -2,11 +2,13 @@ import { FormEventHandler } from 'react';
 
 import ProductInfoForm from '../ProductInfoForm';
 
-import { postProduct } from '../../../../apis/product';
 import ModalPortal from '../../../../components/ModalPortal/ModalPortal';
 import { useProductInfoValueContext } from '../../hooks';
 
 import { formContainer, submitButton } from './productAddModal.css';
+import { useProductAddMutation } from '../../../../hooks/queries';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '../../../../constants';
 
 interface ProductAddModalProps {
   onClose: () => void;
@@ -15,19 +17,36 @@ interface ProductAddModalProps {
 const FORM_ID = 'product-add-form';
 
 const ProductAddModal = ({ onClose }: ProductAddModalProps) => {
+  const { mutate } = useProductAddMutation();
   const productInfo = useProductInfoValueContext();
+  const navigate = useNavigate();
 
   const isDisabled = Object.values(productInfo).some((value) => !value);
 
   const handleProductAdd: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
-    try {
-      postProduct(productInfo);
-      onClose();
-    } catch {
-      alert('상품 추가 실패');
-    }
+    mutate(productInfo, {
+      onSuccess: () => {
+        onClose();
+      },
+      onError: (error) => {
+        if (error instanceof Response) {
+          if (error.status === 401) {
+            alert('로그인이 필요합니다.');
+            navigate(ROUTE.HOME, { replace: true });
+            return;
+          }
+        }
+
+        if (error instanceof Error) {
+          alert(error.message);
+          return;
+        }
+
+        alert('상품 추가에 실패했습니다.');
+      },
+    });
   };
 
   return (
