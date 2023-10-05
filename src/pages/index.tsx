@@ -13,6 +13,7 @@ const router = createBrowserRouter([
   {
     path: ROUTE.HOME,
     element: <Layout />,
+    errorElement: <div>Not Found</div>,
     children: [
       {
         index: true,
