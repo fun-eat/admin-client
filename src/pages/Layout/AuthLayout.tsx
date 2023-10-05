@@ -1,16 +1,16 @@
 import { Navigate } from 'react-router-dom';
 
 import { ROUTE } from '../../constants';
-import { useGetLogin } from '../../hooks';
+import { useLoginQuery } from '../../hooks/queries';
 
 interface AuthLayoutProps {
   children: JSX.Element;
 }
 
 const AuthLayout = ({ children }: AuthLayoutProps) => {
-  const isLoggedIn = useGetLogin();
+  const { data: isLoggedIn } = useLoginQuery();
 
-  if (isLoggedIn === null) {
+  if (isLoggedIn === undefined) {
     return null;
   }
 

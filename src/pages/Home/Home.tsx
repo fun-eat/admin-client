@@ -3,9 +3,8 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 import Input from '../../components/Input';
 
-import { useLoginMutation } from '../../hooks/queries';
+import { useLoginMutation, useLoginQuery } from '../../hooks/queries';
 import { ROUTE } from '../../constants';
-import { useGetLogin } from '../../hooks';
 
 import { container, form, submitButton, title } from './home.css';
 
@@ -16,7 +15,7 @@ const Home = () => {
   });
   const navigate = useNavigate();
   const { mutate } = useLoginMutation();
-  const isLoggedIn = useGetLogin();
+  const { data: isLoggedIn } = useLoginQuery();
 
   if (isLoggedIn) {
     return <Navigate to={ROUTE.PRODUCT} replace />;
