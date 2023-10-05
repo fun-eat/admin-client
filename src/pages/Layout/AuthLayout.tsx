@@ -10,6 +10,10 @@ interface AuthLayoutProps {
 const AuthLayout = ({ children }: AuthLayoutProps) => {
   const { data: isLoggedIn } = useLoginQuery();
 
+  if (isLoggedIn === undefined) {
+    return null;
+  }
+
   if (!isLoggedIn) {
     return <Navigate to={ROUTE.HOME} replace />;
   }
