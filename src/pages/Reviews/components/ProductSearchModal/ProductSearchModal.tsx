@@ -49,7 +49,7 @@ const ProductSearchModal = ({
   const currentPage = usePageValueContext();
   const { onPageChange } = usePageActionContext();
 
-  const handleValueChange = useProductSearchQueryActionContext();
+  const { handleValueChange } = useProductSearchQueryActionContext();
 
   if (!data) {
     return null;

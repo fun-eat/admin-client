@@ -41,7 +41,7 @@ const Products = () => {
   const { onPageChange } = usePageActionContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleValueChange = useProductSearchQueryActionContext();
+  const { handleValueChange } = useProductSearchQueryActionContext();
 
   if (error) {
     return <ErrorComponent error={error} />;

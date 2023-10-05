@@ -7,13 +7,8 @@ import {
 } from '../../apis/product';
 
 export const useProductAddMutation = () => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (body: ProductAddRequestBody) => postProduct(body),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] });
-    },
   });
 };
 

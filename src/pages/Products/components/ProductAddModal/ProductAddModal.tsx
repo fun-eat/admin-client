@@ -3,7 +3,10 @@ import { FormEventHandler } from 'react';
 import ProductInfoForm from '../ProductInfoForm';
 
 import ModalPortal from '../../../../components/ModalPortal/ModalPortal';
-import { useProductInfoValueContext } from '../../hooks';
+import {
+  useProductInfoValueContext,
+  useProductSearchQueryActionContext,
+} from '../../hooks';
 
 import { formContainer, submitButton } from './productAddModal.css';
 import { useProductAddMutation } from '../../../../hooks/queries';
@@ -20,6 +23,7 @@ const ProductAddModal = ({ onClose }: ProductAddModalProps) => {
   const { mutate } = useProductAddMutation();
   const productInfo = useProductInfoValueContext();
   const navigate = useNavigate();
+  const { resetSearchQuery } = useProductSearchQueryActionContext();
 
   const isDisabled = Object.values(productInfo).some((value) => !value);
 
@@ -28,6 +32,7 @@ const ProductAddModal = ({ onClose }: ProductAddModalProps) => {
 
     mutate(productInfo, {
       onSuccess: () => {
+        resetSearchQuery();
         onClose();
       },
       onError: (error) => {

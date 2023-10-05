@@ -13,7 +13,7 @@ const SearchForm = () => {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const categorySelectRef = useRef<HTMLSelectElement>(null);
 
-  const handleValueChange = useProductSearchQueryActionContext();
+  const { handleValueChange } = useProductSearchQueryActionContext();
   const { resetPage } = usePageActionContext();
 
   const { data: categories } = useCategoryQuery();
