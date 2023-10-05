@@ -9,7 +9,7 @@ export interface ProductInfo {
   name: string;
   price: number;
   content: string;
-  categoryId: number;
+  categoryId?: number;
 }
 
 interface ProductInfoAction {
@@ -29,7 +29,6 @@ const INIT_PRODUCT_INFO = {
   name: '',
   price: 0,
   content: '',
-  categoryId: 0,
 };
 
 const ProductInfoProvider = ({ children }: PropsWithChildren) => {
