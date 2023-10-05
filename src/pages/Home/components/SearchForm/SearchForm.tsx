@@ -23,8 +23,10 @@ const SearchForm = () => {
 
     if (!nameInputRef.current || !categorySelectRef.current) return;
 
+    const categoryValue = parseInt(categorySelectRef.current.value, 10);
+
     const name = nameInputRef.current.value;
-    const categoryId = Number(categorySelectRef.current.value);
+    const categoryId = !isNaN(categoryValue) ? categoryValue : undefined;
 
     handleValueChange({
       id: null,
