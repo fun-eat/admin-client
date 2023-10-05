@@ -1,6 +1,9 @@
-import { FormEventHandler, useRef } from 'react';
+import { FormEventHandler, useState } from 'react';
 
-import { useProductSearchQueryActionContext } from '../../hooks';
+import {
+  useProductSearchQueryActionContext,
+  useProductSearchQueryValueContext,
+} from '../../hooks';
 
 import Input from '../../../../components/Input';
 import Select from '../../../../components/Select';
@@ -10,8 +13,10 @@ import { usePageActionContext } from '../../../../hooks/contexts';
 import { searchForm, submitButton } from './searchForm.css';
 
 const SearchForm = () => {
-  const nameInputRef = useRef<HTMLInputElement>(null);
-  const categorySelectRef = useRef<HTMLSelectElement>(null);
+  const { name, categoryId } = useProductSearchQueryValueContext();
+
+  const [currentName, setCurrentName] = useState(name);
+  const [currentCategoryId, setCurrentCategoryId] = useState(categoryId ?? '');
 
   const { handleValueChange } = useProductSearchQueryActionContext();
   const { resetPage } = usePageActionContext();
@@ -21,16 +26,12 @@ const SearchForm = () => {
   const handleProductSearch: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
-    if (!nameInputRef.current || !categorySelectRef.current) return;
-
-    const categoryValue = parseInt(categorySelectRef.current.value, 10);
-
-    const name = nameInputRef.current.value;
-    const categoryId = !isNaN(categoryValue) ? categoryValue : undefined;
+    const categoryId =
+      typeof currentCategoryId === 'number' ? currentCategoryId : undefined;
 
     handleValueChange({
       id: null,
-      name,
+      name: currentName,
       categoryId,
       totalElements: null,
       prePage: 0,
@@ -40,8 +41,15 @@ const SearchForm = () => {
 
   return (
     <form className={searchForm} onSubmit={handleProductSearch}>
-      <Input label='상품명' ref={nameInputRef} />
-      <Select label='카테고리' ref={categorySelectRef}>
+      <Input
+        label='상품명'
+        value={currentName}
+        onChange={({ currentTarget: { value } }) => setCurrentName(value)}
+      />
+      <Select
+        label='카테고리'
+        onChange={({ target: { value } }) => setCurrentCategoryId(value)}
+      >
         {categories?.map((category) => (
           <option key={category.id} value={category.id}>
             {category.name}

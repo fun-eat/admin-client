@@ -12,6 +12,7 @@ import { formContainer, submitButton } from './productAddModal.css';
 import { useProductAddMutation } from '../../../../hooks/queries';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../../constants';
+import { usePageActionContext } from '../../../../hooks/contexts';
 
 interface ProductAddModalProps {
   onClose: () => void;
@@ -23,7 +24,9 @@ const ProductAddModal = ({ onClose }: ProductAddModalProps) => {
   const { mutate } = useProductAddMutation();
   const productInfo = useProductInfoValueContext();
   const navigate = useNavigate();
+
   const { resetSearchQuery } = useProductSearchQueryActionContext();
+  const { resetPage } = usePageActionContext();
 
   const isDisabled = Object.values(productInfo).some((value) => !value);
 
@@ -33,6 +36,7 @@ const ProductAddModal = ({ onClose }: ProductAddModalProps) => {
     mutate(productInfo, {
       onSuccess: () => {
         resetSearchQuery();
+        resetPage();
         onClose();
       },
       onError: (error) => {
