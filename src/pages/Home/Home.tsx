@@ -2,8 +2,8 @@ import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 import Input from '../../components/Input';
 
 import { container, form, submitButton, title } from './home.css';
-import { postLogin } from '../../apis/login';
 import { useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../../hooks/queries';
 
 const Home = () => {
   const [memberInfo, setMemberInfo] = useState({
@@ -11,6 +11,7 @@ const Home = () => {
     key: '',
   });
   const navigate = useNavigate();
+  const { mutate } = useLoginMutation();
 
   const handleValueChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.currentTarget;
@@ -24,12 +25,14 @@ const Home = () => {
   const handleLogin: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
-    try {
-      postLogin(memberInfo);
-      navigate('/products');
-    } catch {
-      alert('로그인 실패');
-    }
+    mutate(memberInfo, {
+      onSuccess: () => {
+        navigate('/products');
+      },
+      onError: () => {
+        alert('로그인 실패');
+      },
+    });
   };
 
   return (

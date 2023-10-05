@@ -1,4 +1,4 @@
-interface LoginRequestBody {
+export interface LoginRequestBody {
   id: string;
   key: string;
 }
