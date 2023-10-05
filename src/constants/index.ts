@@ -14,7 +14,7 @@ export interface Column {
   align?: 'left' | 'center' | 'right';
 }
 
-export const PRODUCT_COLUMNS_WIDTH = [15, 25, 30, 15, 15];
+export const PRODUCT_COLUMNS_WIDTH = [10, 25, 35, 15, 15];
 
 export const PRODUCT_COLUMNS: Column[] = [
   { id: 1, name: '아이디', align: 'right' },
@@ -32,4 +32,11 @@ export const REVIEW_COLUMNS: Column[] = [
   { id: 3, name: '내용' },
   { id: 4, name: '상품명' },
   { id: 5, name: '작성 날짜' },
+];
+
+export const PRODUCT_SEARCH_COLUMNS_WIDTH = [10, 40];
+
+export const PRODUCT_SEARCH_COLUMNS: Column[] = [
+  { id: 1, name: '아이디', align: 'right' },
+  { id: 2, name: '상품명' },
 ];

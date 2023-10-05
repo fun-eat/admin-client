@@ -59,7 +59,11 @@ const Reviews = () => {
       <div className={section}>
         <Pagination
           currentPage={currentPage}
-          onPageChange={onPageChange(reviewResponses, 10, handleValueChange)}
+          onPageChange={onPageChange(
+            reviewResponses,
+            totalElements,
+            handleValueChange
+          )}
           isLastPage={lastPage}
         />
       </div>

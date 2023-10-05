@@ -1,28 +1,48 @@
 import { FormEventHandler, useState } from 'react';
+
+import ProductSearchModal from '../ProductSearchModal';
+
 import Calendar from '../../../../components/Calendar';
-import Input from '../../../../components/Input';
+import PageProvider from '../../../../contexts/PageContext';
+import ProductSearchQueryProvider from '../../../Home/contexts/ProductSearchQueryContext';
+import { useReviewSearchQueryActionContext } from '../../hooks';
 import { useDisclosure } from '../../../../hooks';
 import { convertToDateWithoutTime } from '../../../../utils';
-import {
-  useReviewSearchQueryActionContext,
-  useReviewSearchQueryValueContext,
-} from '../../hooks';
 
 import {
   dateButton,
-  dateText,
+  text,
   searchForm,
   submitButton,
   wrapper,
+  productNameText,
 } from './searchForm.css';
 
+interface ProductSearch {
+  id: number;
+  name: string;
+}
+
 const SearchForm = () => {
+  const [product, setProduct] = useState<ProductSearch>();
   const [from, setFrom] = useState<string>();
   const [to, setTo] = useState<string>();
 
-  const reviewSearchQuery = useReviewSearchQueryValueContext();
   const handleValueChange = useReviewSearchQueryActionContext();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isCalendarOpen,
+    onOpen: openCalendar,
+    onClose: closeCalendar,
+  } = useDisclosure();
+  const {
+    isOpen: isProductSearchModalOpen,
+    onOpen: openProductSearchModal,
+    onClose: closeProductSearchModal,
+  } = useDisclosure();
+
+  const applyProduct = (product: ProductSearch) => {
+    setProduct(product);
+  };
 
   const applyDateRange = (dateRange: (string | undefined)[]) => {
     const [currentFrom, currentTo] = dateRange;
@@ -36,7 +56,7 @@ const SearchForm = () => {
 
     handleValueChange({
       id: null,
-      name: reviewSearchQuery.name,
+      productId: product?.id,
       from,
       to,
       totalElements: null,
@@ -47,27 +67,46 @@ const SearchForm = () => {
   return (
     <>
       <form className={searchForm} onSubmit={handleReviewSearch}>
-        <Input label='상품명' name='name' />
+        <div className={wrapper}>
+          <span>상품명</span>
+          <button
+            type='button'
+            className={productNameText}
+            onClick={openProductSearchModal}
+          >
+            {product ? product.name : ''}
+          </button>
+        </div>
         <div className={wrapper}>
           <span>날짜</span>
-          <button type='button' className={dateButton} onClick={onOpen}>
-            <span className={dateText}>
+          <button type='button' className={dateButton} onClick={openCalendar}>
+            <span className={text}>
               {from ? convertToDateWithoutTime(from) : '시작 날짜'}
             </span>
             <span>~</span>
-            <span className={dateText}>
+            <span className={text}>
               {to ? convertToDateWithoutTime(to) : '종료 날짜'}
             </span>
           </button>
         </div>
         <button className={submitButton}>검색</button>
       </form>
-      {isOpen && (
+      {isCalendarOpen && (
         <Calendar
           dateRange={[from, to]}
           applyDateRange={applyDateRange}
-          onClose={onClose}
+          onClose={closeCalendar}
         />
+      )}
+      {isProductSearchModalOpen && (
+        <ProductSearchQueryProvider>
+          <PageProvider>
+            <ProductSearchModal
+              applyProduct={applyProduct}
+              onClose={closeProductSearchModal}
+            />
+          </PageProvider>
+        </ProductSearchQueryProvider>
       )}
     </>
   );

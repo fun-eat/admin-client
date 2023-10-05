@@ -23,15 +23,26 @@ export const dateButton = style({
   gap: 10,
 });
 
-export const dateText = style({
+export const text = style({
   display: 'block',
-  width: 150,
+  width: 180,
   height: 40,
   lineHeight: '40px',
   textAlign: 'center',
   border: '1px solid #ccc',
   borderRadius: 4,
 });
+
+export const productNameText = style([
+  text,
+  {
+    padding: '0 16px',
+    textAlign: 'left',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+]);
 
 export const submitButton = style({
   justifySelf: 'flex-end',
