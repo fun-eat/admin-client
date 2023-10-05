@@ -1,8 +1,9 @@
 import { PropsWithChildren, useContext } from 'react';
 import { CalendarContainer as Container } from 'react-datepicker';
 
-import { convertToDateWithoutTime } from '../../utils';
 import { DateActionContext, DateValueContext } from './Calendar';
+
+import { convertToDateWithoutTime } from '../../utils';
 
 const CalendarContainer = ({ children }: PropsWithChildren) => {
   const [startDate, endDate] = useContext(DateValueContext);

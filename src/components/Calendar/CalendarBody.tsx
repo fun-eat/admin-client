@@ -1,10 +1,12 @@
+import { useContext } from 'react';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
 
+import { DateActionContext, DateValueContext } from './Calendar';
 import CalendarContainer from './CalendarContainer';
 import CalendarHeader from './CalendarHeader';
-import { useContext } from 'react';
-import { DateActionContext, DateValueContext } from './Calendar';
+
+import './calendar.css';
 
 const CalendarBody = () => {
   const [startDate, endDate] = useContext(DateValueContext);
@@ -12,8 +14,10 @@ const CalendarBody = () => {
 
   return (
     <DatePicker
+      selected={startDate}
       startDate={startDate}
       endDate={endDate}
+      maxDate={new Date()}
       onChange={handleDateChange}
       calendarContainer={CalendarContainer}
       renderCustomHeader={CalendarHeader}
