@@ -6,10 +6,10 @@ export interface LoginRequestBody {
 }
 
 export const getLogin = async () => {
-  const response = await fetchApi('/api/admin/login', {
+  const response = await fetchApi('/api/admin/logged-check', {
     method: 'GET',
   });
-  const data: boolean = await response.json();
+  const data: true = await response.json();
   return data;
 };
 
