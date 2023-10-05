@@ -1,0 +1,156 @@
+.react-datepicker__header {
+  position: relative;
+  height: 80px;
+  padding: 8px 0;
+  text-align: center;
+}
+
+.react-datepicker__header .react-datepicker__day-names {
+  margin-top: 10px;
+}
+
+.react-datepicker__month-container {
+  margin: 10px 40px;
+}
+
+.react-datepicker__aria-live {
+  display: none;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+
+  &:hover {
+    border-radius: unset;
+  }
+}
+
+.react-datepicker__day {
+  cursor: pointer;
+}
+
+.react-datepicker__week {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.react-datepicker__day--outside-month,
+.react-datepicker__day--disabled {
+  color: #94a2ad;
+}
+
+.react-datepicker__day--range-start,
+.react-datepicker__day--range-end,
+.react-datepicker__day--selecting-range-start {
+  z-index: 910 !important;
+  color: #000 !important;
+  background: #d8eaff !important;
+}
+
+.react-datepicker__day--in-selecting-range:not(
+    .react-datepicker__day--range-start,
+    .react-datepicker__day--range-end
+  ),
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range {
+  position: relative;
+  z-index: 909;
+  color: #3a474e;
+  background: #edeff1;
+  border-radius: unset;
+
+  &:hover {
+    background: #edeff1;
+    border-radius: unset;
+  }
+}
+
+.react-datepicker__day--keyboard-selected {
+  background: inherit;
+
+  &:hover {
+    background: #edeff1;
+  }
+}
+
+.calendar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 910;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(41, 50, 55, 15%);
+}
+
+.calendar-header {
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  color: #000;
+  text-align: center;
+  background: #d8eaff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.calendar-main {
+  position: relative;
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+
+  .monthly-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+
+    .prev,
+    .next {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      background: #f6f7f8;
+      border-radius: 50%;
+    }
+  }
+}
+
+.calendar-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 80px;
+  padding-right: 10px;
+
+  & > button {
+    height: 40px;
+    padding: 12px 20px;
+    font-size: 14px;
+    line-height: 16px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+
+  & > button + .apply {
+    margin-left: 16px;
+    color: #000;
+    background: #d8eaff;
+  }
+}

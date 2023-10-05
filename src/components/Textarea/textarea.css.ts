@@ -7,7 +7,8 @@ export const textareaContainer = style({
 });
 
 export const textarea = style({
-  padding: 10,
+  padding: '16px',
   border: '1px solid #ccc',
   borderRadius: 4,
+  resize: 'vertical',
 });

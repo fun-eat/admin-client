@@ -7,8 +7,13 @@ const intl = new Intl.NumberFormat('ko-KR', {
 
 export const formatCurrency = (price: number) => intl.format(price);
 
-export const convertToDate = (date: string) =>
+export const convertToDate = (date: Date | string) =>
   dayjs(date).format('YYYY.MM.DD HH:mm:ss');
 
+export const convertToDateWithoutTime = (date: Date | string) =>
+  dayjs(date).format('YYYY.MM.DD');
+
 export const convertToQueryString = (queryKey: string, value: unknown) =>
-  value !== null && value !== undefined ? `${queryKey}=${value}` : '';
+  value !== null && value !== undefined && value !== ''
+    ? `${queryKey}=${value}`
+    : '';

@@ -9,10 +9,18 @@ import './styles/index.css';
 
 const queryClient = new QueryClient();
 
+const main = async () => {
+  if (process.env.NODE_ENV === 'development') {
+    const { worker } = await import('./mocks/browser');
+    await worker.start();
+  }
+};
+await main();
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} fallbackElement={<div>Loading</div>} />
     </QueryClientProvider>
   </StrictMode>
 );

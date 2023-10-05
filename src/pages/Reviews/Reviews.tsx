@@ -1,4 +1,5 @@
 import ReviewRow from './components/ReviewRow';
+import SearchForm from './components/SearchForm';
 import {
   useReviewSearchQueryActionContext,
   useReviewSearchQueryValueContext,
@@ -38,6 +39,9 @@ const Reviews = () => {
   return (
     <div className={container}>
       <h1 className={title}>리뷰</h1>
+      <section className={section}>
+        <SearchForm />
+      </section>
       <section className={section}>
         <h2 className={tableTitle}>
           총 {totalElements.toLocaleString('ko-KR')}개의 리뷰가 검색되었습니다.
