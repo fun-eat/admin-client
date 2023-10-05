@@ -21,22 +21,20 @@ import { useReviewQuery } from '../../hooks/queries';
 
 import { container, section, tableTitle, title } from './reviews.css';
 
-import mockReviewResponses from '../../mocks/reviews.json';
-
 const Reviews = () => {
   const reviewSearchQuery = useReviewSearchQueryValueContext();
-  //const { data } = useReviewQuery(reviewSearchQuery);
+  const { data } = useReviewQuery(reviewSearchQuery);
 
   const currentPage = usePageValueContext();
   const { onPageChange } = usePageActionContext();
 
   const handleValueChange = useReviewSearchQueryActionContext();
 
-  //if (!data) {
-  //  return null;
-  //}
+  if (!data) {
+    return null;
+  }
 
-  //const { lastPage, totalElements, reviewResponses } = data;
+  const { lastPage, totalElements, reviewResponses } = data;
 
   return (
     <div className={container}>
@@ -46,13 +44,13 @@ const Reviews = () => {
       </section>
       <section className={section}>
         <h2 className={tableTitle}>
-          총 {'1000'.toLocaleString('ko-KR')}개의 리뷰가 검색되었습니다.
+          총 {totalElements.toLocaleString('ko-KR')}개의 리뷰가 검색되었습니다.
         </h2>
         <Table>
           <Colgroup widths={REVIEW_COLUMNS_WIDTH} />
           <TableHeader columns={REVIEW_COLUMNS} />
           <TableBody>
-            {mockReviewResponses.reviewResponses.map((review) => (
+            {reviewResponses.map((review) => (
               <ReviewRow key={review.id} review={review} />
             ))}
           </TableBody>
@@ -61,12 +59,8 @@ const Reviews = () => {
       <div className={section}>
         <Pagination
           currentPage={currentPage}
-          onPageChange={onPageChange(
-            mockReviewResponses.reviewResponses,
-            10,
-            handleValueChange
-          )}
-          isLastPage={true}
+          onPageChange={onPageChange(reviewResponses, 10, handleValueChange)}
+          isLastPage={lastPage}
         />
       </div>
     </div>
