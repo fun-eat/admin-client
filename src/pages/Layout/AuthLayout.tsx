@@ -1,18 +1,14 @@
 import { Navigate } from 'react-router-dom';
 
 import { ROUTE } from '../../constants';
-import { useLoginQuery } from '../../hooks/queries';
+import { useGetLogin } from '../../hooks/useGetLogin';
 
 interface AuthLayoutProps {
   children: JSX.Element;
 }
 
 const AuthLayout = ({ children }: AuthLayoutProps) => {
-  const { data: isLoggedIn } = useLoginQuery();
-
-  if (isLoggedIn === undefined) {
-    return null;
-  }
+  const isLoggedIn = useGetLogin();
 
   if (!isLoggedIn) {
     return <Navigate to={ROUTE.HOME} replace />;

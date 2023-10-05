@@ -3,8 +3,9 @@ import Input from '../../components/Input';
 
 import { container, form, submitButton, title } from './home.css';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { useLoginMutation, useLoginQuery } from '../../hooks/queries';
+import { useLoginMutation } from '../../hooks/queries';
 import { ROUTE } from '../../constants';
+import { useGetLogin } from '../../hooks/useGetLogin';
 
 const Home = () => {
   const [memberInfo, setMemberInfo] = useState({
@@ -13,7 +14,7 @@ const Home = () => {
   });
   const navigate = useNavigate();
   const { mutate } = useLoginMutation();
-  const { data: isLoggedIn } = useLoginQuery();
+  const isLoggedIn = useGetLogin();
 
   if (isLoggedIn) {
     return <Navigate to={ROUTE.PRODUCT} replace />;
