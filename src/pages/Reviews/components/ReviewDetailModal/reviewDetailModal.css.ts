@@ -30,6 +30,15 @@ export const reviewImage = style({
   objectFit: 'cover',
 });
 
+export const noImageText = style({
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#eee',
+});
+
 export const contentTitle = style({
   fontSize: 18,
   fontWeight: 600,

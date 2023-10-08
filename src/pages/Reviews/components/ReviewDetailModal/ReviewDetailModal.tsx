@@ -9,6 +9,7 @@ import {
   contentTitle,
   deleteButton,
   imageWrapper,
+  noImageText,
   reviewContent,
   reviewImage,
   reviewUserName,
@@ -65,13 +66,15 @@ const ReviewDetailModal = ({ review, onClose }: ReviewDetailModalProps) => {
           <strong className={reviewUserName}>{userName}</strong>
         </p>
         <div className={imageWrapper}>
-          {image && (
+          {image ? (
             <img
               src={image}
               className={reviewImage}
               height={180}
               alt={productName}
             />
+          ) : (
+            <p className={noImageText}>이미지 없음</p>
           )}
         </div>
         <section>
