@@ -1,97 +1,66 @@
-import ProductRow from './components/ProductRow';
-import SearchForm from './components/SearchForm';
-import ProductInfoProvider from './contexts/ProductInfoContext';
-import {
-  useProductSearchQueryActionContext,
-  useProductSearchQueryValueContext,
-} from './hooks';
+import { ChangeEventHandler, FormEventHandler, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-import ProductAddModal from './components/ProductAddModal';
-import {
-  Colgroup,
-  Table,
-  TableBody,
-  TableHeader,
-} from '../../components/Table';
-import Pagination from '../../components/Pagination';
-import { PRODUCT_COLUMNS, PRODUCT_COLUMNS_WIDTH } from '../../constants';
-import { useProductQuery } from '../../hooks/queries';
-import { useDisclosure } from '../../hooks';
+import Input from '../../components/Input';
 
-import {
-  addButton,
-  paginationWrapper,
-  searchSection,
-  tableTitle,
-  tableWrapper,
-  title,
-  titleWrapper,
-} from './home.css';
-import {
-  usePageActionContext,
-  usePageValueContext,
-} from '../../hooks/contexts';
+import { useLoginMutation, useLoginQuery } from '../../hooks/queries';
+import { ROUTE } from '../../constants';
+
+import { container, form, submitButton, title } from './home.css';
 
 const Home = () => {
-  const productSearchQuery = useProductSearchQueryValueContext();
-  const { data } = useProductQuery(productSearchQuery);
+  const [memberInfo, setMemberInfo] = useState({
+    id: '',
+    key: '',
+  });
+  const navigate = useNavigate();
+  const { mutate } = useLoginMutation();
+  const { data: isLoggedIn } = useLoginQuery();
 
-  const currentPage = usePageValueContext();
-  const { onPageChange } = usePageActionContext();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const handleValueChange = useProductSearchQueryActionContext();
-
-  if (!data) {
-    return null;
+  if (isLoggedIn) {
+    return <Navigate to={ROUTE.PRODUCT} replace />;
   }
 
-  const { lastPage, totalElements, productResponses } = data;
+  const handleValueChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { name, value } = e.currentTarget;
+
+    setMemberInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleLogin: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+
+    mutate(memberInfo, {
+      onSuccess: () => {
+        navigate('/products');
+      },
+      onError: (error) => {
+        if (error instanceof Error) {
+          alert(error.message);
+          return;
+        }
+        alert('로그인에 실패했습니다.');
+      },
+    });
+  };
 
   return (
-    <>
-      <div className={titleWrapper}>
-        <h1 className={title}>편의점 상품</h1>
-        <button type='button' className={addButton} onClick={onOpen}>
-          상품 추가
-        </button>
-      </div>
-      <section className={searchSection}>
-        <SearchForm />
-      </section>
-      <section className={tableWrapper}>
-        <h2 className={tableTitle}>
-          총 {totalElements.toLocaleString('ko-KR')}개의 상품이 검색되었습니다.
-        </h2>
-        <ProductInfoProvider>
-          <Table>
-            <Colgroup widths={PRODUCT_COLUMNS_WIDTH} />
-            <TableHeader columns={PRODUCT_COLUMNS} />
-            <TableBody>
-              {productResponses.map((product) => (
-                <ProductRow key={product.id} product={product} />
-              ))}
-            </TableBody>
-          </Table>
-        </ProductInfoProvider>
-        <div className={paginationWrapper}>
-          <Pagination
-            currentPage={currentPage}
-            onPageChange={onPageChange(
-              productResponses,
-              totalElements,
-              handleValueChange
-            )}
-            isLastPage={lastPage}
-          />
-        </div>
-      </section>
-      {isOpen && (
-        <ProductInfoProvider>
-          <ProductAddModal onClose={onClose} />
-        </ProductInfoProvider>
-      )}
-    </>
+    <main className={container}>
+      <h1 className={title}>FUNEAT BACK OFFICE</h1>
+      <form className={form} onSubmit={handleLogin}>
+        <Input label='아이디' name='id' onChange={handleValueChange} />
+        <Input
+          label='비밀번호'
+          type='password'
+          name='key'
+          onChange={handleValueChange}
+        />
+        <button className={submitButton}>로그인</button>
+      </form>
+    </main>
   );
 };
 

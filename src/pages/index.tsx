@@ -1,26 +1,37 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Home from './Home';
 import Layout from './Layout';
+import Home from './Home';
+import Products from './Products';
 import Reviews from './Reviews';
 
 import { ROUTE } from '../constants';
 import PageProvider from '../contexts/PageContext';
-import ProductSearchQueryProvider from './Home/contexts/ProductSearchQueryContext';
+import ProductSearchQueryProvider from './Products/contexts/ProductSearchQueryContext';
 import ReviewSearchQueryProvider from './Reviews/contexts/ReviewSearchQueryContext';
+import AuthLayout from './Layout/AuthLayout';
 
 const router = createBrowserRouter([
   {
     path: ROUTE.HOME,
-    element: <Layout />,
+    element: <Home />,
+    errorElement: <div>Not Found</div>,
+  },
+  {
+    path: ROUTE.HOME,
+    element: (
+      <AuthLayout>
+        <Layout />
+      </AuthLayout>
+    ),
     errorElement: <div>Not Found</div>,
     children: [
       {
-        index: true,
+        path: ROUTE.PRODUCT,
         element: (
           <ProductSearchQueryProvider>
             <PageProvider>
-              <Home />
+              <Products />
             </PageProvider>
           </ProductSearchQueryProvider>
         ),

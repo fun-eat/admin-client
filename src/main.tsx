@@ -7,15 +7,13 @@ import router from './pages';
 
 import './styles/index.css';
 
-const queryClient = new QueryClient();
-
-const main = async () => {
-  if (process.env.NODE_ENV === 'development') {
-    const { worker } = await import('./mocks/browser');
-    await worker.start();
-  }
-};
-await main();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

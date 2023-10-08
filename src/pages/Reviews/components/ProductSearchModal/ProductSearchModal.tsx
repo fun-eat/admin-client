@@ -5,7 +5,7 @@ import { useProductQuery } from '../../../../hooks/queries';
 import {
   useProductSearchQueryActionContext,
   useProductSearchQueryValueContext,
-} from '../../../Home/hooks';
+} from '../../../Products/hooks';
 
 import {
   container,
@@ -49,7 +49,7 @@ const ProductSearchModal = ({
   const currentPage = usePageValueContext();
   const { onPageChange } = usePageActionContext();
 
-  const handleValueChange = useProductSearchQueryActionContext();
+  const { handleValueChange } = useProductSearchQueryActionContext();
 
   if (!data) {
     return null;

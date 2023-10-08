@@ -1,6 +1,6 @@
-import { ProductInfo } from '../pages/Home/contexts';
 import { convertToQueryString } from '../utils';
 import { CategoryResponse } from './category';
+import { fetchApi } from './fetchApi';
 import { RequestQuery, ResponseData } from './type';
 
 export interface Product extends ResponseData {
@@ -23,6 +23,13 @@ export interface ProductRequestQuery extends RequestQuery {
   categoryId?: number;
   totalElements: number | null;
   prePage: number;
+}
+
+export interface ProductAddRequestBody {
+  name: string;
+  price: number;
+  content: string;
+  categoryId?: number;
 }
 
 export const getProducts = async ({
@@ -50,21 +57,26 @@ export const getProducts = async ({
     .filter((query) => query.length > 0)
     .join('&')}`;
 
-  const response = await fetch(`/api/admin/products${query}`);
+  const response = await fetchApi(`/api/admin/products${query}`, {
+    method: 'GET',
+  });
   const data: ProductResponse = await response.json();
   return data;
 };
 
-export const postProduct = (product: unknown) => {
-  fetch('/api/admin/products', {
+export const postProduct = (product: ProductAddRequestBody) => {
+  return fetchApi('/api/admin/products', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(product),
   });
 };
 
-export const putProduct = (productId: number, productInfo: ProductInfo) => {
-  fetch(`/api/admin/products/${productId}`, {
+export const putProduct = (
+  productId: number,
+  productInfo: ProductAddRequestBody
+) => {
+  return fetchApi(`/api/admin/products/${productId}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(productInfo),
