@@ -1,6 +1,6 @@
 export interface ResponseData {
   id: number;
-  [key: string]: string | number | object;
+  [key: string]: string | number | object | null;
 }
 
 export interface RequestQuery {

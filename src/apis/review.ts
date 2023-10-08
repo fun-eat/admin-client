@@ -5,6 +5,7 @@ import { RequestQuery, ResponseData } from './type';
 export interface Review extends ResponseData {
   id: number;
   userName: string;
+  image: string | null;
   content: string;
   productName: string;
   createdAt: string;
