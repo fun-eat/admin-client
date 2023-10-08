@@ -60,3 +60,9 @@ export const getReviews = async ({
   const data: ReviewResponse = await response.json();
   return data;
 };
+
+export const deleteReview = (reviewId: number) => {
+  return fetchApi(`/api/admin/reviews/${reviewId}}`, {
+    method: 'DELETE',
+  });
+};
