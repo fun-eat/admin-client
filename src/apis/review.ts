@@ -62,7 +62,7 @@ export const getReviews = async ({
 };
 
 export const deleteReview = (reviewId: number) => {
-  return fetchApi(`/api/admin/reviews/${reviewId}}`, {
+  return fetchApi(`/api/admin/reviews/${reviewId}`, {
     method: 'DELETE',
   });
 };

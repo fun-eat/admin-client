@@ -52,7 +52,7 @@ const ReviewDetailModal = ({ review, onClose }: ReviewDetailModalProps) => {
           }
         }
 
-        alert('상품 추가에 실패했습니다.');
+        alert('리뷰 삭제에 실패했습니다.');
       },
     });
   };
