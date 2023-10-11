@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../constants';
 import { convertToQueryString } from '../utils';
 import { fetchApi } from './fetchApi';
 import { RequestQuery, ResponseData } from './type';
@@ -54,7 +55,7 @@ export const getReviews = async ({
     .filter((query) => query.length > 0)
     .join('&')}`;
 
-  const response = await fetchApi(`/api/admin/reviews${query}`, {
+  const response = await fetchApi(`${API_BASE_URL}/reviews${query}`, {
     method: 'GET',
   });
   const data: ReviewResponse = await response.json();
@@ -62,7 +63,7 @@ export const getReviews = async ({
 };
 
 export const deleteReview = (reviewId: number) => {
-  return fetchApi(`/api/admin/reviews/${reviewId}`, {
+  return fetchApi(`${API_BASE_URL}/reviews/${reviewId}`, {
     method: 'DELETE',
   });
 };

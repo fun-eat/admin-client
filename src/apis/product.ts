@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../constants';
 import { convertToQueryString } from '../utils';
 import { CategoryResponse } from './category';
 import { fetchApi } from './fetchApi';
@@ -57,7 +58,7 @@ export const getProducts = async ({
     .filter((query) => query.length > 0)
     .join('&')}`;
 
-  const response = await fetchApi(`/api/admin/products${query}`, {
+  const response = await fetchApi(`${API_BASE_URL}/products${query}`, {
     method: 'GET',
   });
   const data: ProductResponse = await response.json();
@@ -65,7 +66,7 @@ export const getProducts = async ({
 };
 
 export const postProduct = (product: ProductAddRequestBody) => {
-  return fetchApi('/api/admin/products', {
+  return fetchApi(`${API_BASE_URL}/products`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(product),
@@ -76,7 +77,7 @@ export const putProduct = (
   productId: number,
   productInfo: ProductAddRequestBody
 ) => {
-  return fetchApi(`/api/admin/products/${productId}`, {
+  return fetchApi(`${API_BASE_URL}/products/${productId}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(productInfo),
