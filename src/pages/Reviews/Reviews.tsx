@@ -28,7 +28,7 @@ const Reviews = () => {
   const currentPage = usePageValueContext();
   const { onPageChange } = usePageActionContext();
 
-  const handleValueChange = useReviewSearchQueryActionContext();
+  const { handleValueChange } = useReviewSearchQueryActionContext();
 
   if (!data) {
     return null;

@@ -29,7 +29,7 @@ const SearchForm = () => {
   const [from, setFrom] = useState<string>();
   const [to, setTo] = useState<string>();
 
-  const handleValueChange = useReviewSearchQueryActionContext();
+  const { handleValueChange } = useReviewSearchQueryActionContext();
   const {
     isOpen: isCalendarOpen,
     onOpen: openCalendar,

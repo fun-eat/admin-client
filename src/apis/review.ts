@@ -5,6 +5,7 @@ import { RequestQuery, ResponseData } from './type';
 export interface Review extends ResponseData {
   id: number;
   userName: string;
+  image: string | null;
   content: string;
   productName: string;
   createdAt: string;
@@ -58,4 +59,10 @@ export const getReviews = async ({
   });
   const data: ReviewResponse = await response.json();
   return data;
+};
+
+export const deleteReview = (reviewId: number) => {
+  return fetchApi(`/api/admin/reviews/${reviewId}`, {
+    method: 'DELETE',
+  });
 };

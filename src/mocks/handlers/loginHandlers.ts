@@ -16,7 +16,7 @@ export const loginHandlers = [
     );
   }),
 
-  rest.get('/api/admin/login', (req, res, ctx) => {
+  rest.get('/api/admin/logged-check', (req, res, ctx) => {
     const { mockSessionId } = req.cookies;
 
     if (mockSessionId === 'abc') {

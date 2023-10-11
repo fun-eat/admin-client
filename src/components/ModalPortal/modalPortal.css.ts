@@ -17,6 +17,7 @@ export const content = style({
   width: 480,
   height: 600,
   backgroundColor: '#fff',
+  borderRadius: 10,
   transform: 'translate(-50%, -50%)',
   zIndex: 101,
 });
