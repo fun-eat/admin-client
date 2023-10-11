@@ -1,4 +1,5 @@
 import { API_BASE_URL } from '../constants';
+import { fetchApi } from './fetchApi';
 
 export interface CategoryResponse {
   id: number;
@@ -7,7 +8,9 @@ export interface CategoryResponse {
 }
 
 export const getProductCategories = async () => {
-  const response = await fetch(`${API_BASE_URL}/categories`);
+  const response = await fetchApi(`${API_BASE_URL}/categories`, {
+    method: 'GET',
+  });
   const data: CategoryResponse[] = await response.json();
   return data;
 };
