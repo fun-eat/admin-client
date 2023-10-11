@@ -85,6 +85,7 @@ const ReviewDetailModal = ({ review, onClose }: ReviewDetailModalProps) => {
           type='button'
           className={deleteButton}
           onClick={handleReviewDelete}
+          disabled
         >
           리뷰 삭제
         </button>

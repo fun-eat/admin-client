@@ -61,4 +61,8 @@ export const deleteButton = style({
   borderRadius: 4,
   backgroundColor: '#fff',
   transform: 'translateX(-50%)',
+
+  ':disabled': {
+    cursor: 'not-allowed',
+  },
 });
