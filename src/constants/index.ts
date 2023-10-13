@@ -2,6 +2,10 @@ export const API_BASE_URL = import.meta.env.PROD
   ? import.meta.env.VITE_API_BASE_URL
   : '/api/admin';
 
+export const API_SERVICE_URL = import.meta.env.PROD
+  ? import.meta.env.VITE_API_SERVICE_URL
+  : '/api';
+
 export const ROUTE = {
   HOME: '/',
   PRODUCT: '/products',
@@ -46,4 +50,13 @@ export const PRODUCT_SEARCH_COLUMNS_WIDTH = [10, 40];
 export const PRODUCT_SEARCH_COLUMNS: Column[] = [
   { id: 1, name: '아이디', align: 'right' },
   { id: 2, name: '상품명' },
+];
+
+export const BANNER_COLUMNS_WIDTH = [10, 40, 40, 10];
+
+export const BANNER_COLUMNS: Column[] = [
+  { id: 1, name: '아이디', align: 'right' },
+  { id: 2, name: '이미지', align: 'center' },
+  { id: 3, name: '링크' },
+  { id: 4, name: '', align: 'center' },
 ];

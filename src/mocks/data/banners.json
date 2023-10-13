@@ -1,0 +1,17 @@
+[
+  {
+    "id": 3,
+    "image": "https://image.funeat.site/prod/banner.png",
+    "link": "https://funeat.site"
+  },
+  {
+    "id": 2,
+    "image": "https://image.funeat.site/prod/banner.png",
+    "link": "https://funeat.site/products/food"
+  },
+  {
+    "id": 1,
+    "image": "https://image.funeat.site/prod/banner.png",
+    "link": "https://funeat.site/recipes"
+  }
+]

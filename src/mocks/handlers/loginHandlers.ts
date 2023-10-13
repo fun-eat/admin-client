@@ -10,10 +10,7 @@ export const loginHandlers = [
       return res(ctx.status(200), ctx.cookie('mockSessionId', 'abc'));
     }
 
-    return res(
-      ctx.status(401),
-      ctx.json({ code: 401, message: 'Unauthorized - funeat' })
-    );
+    return res(ctx.json({ code: 401, message: 'Unauthorized - funeat' }));
   }),
 
   rest.get('/api/admin/logged-check', (req, res, ctx) => {
