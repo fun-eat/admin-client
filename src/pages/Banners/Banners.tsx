@@ -22,6 +22,8 @@ const Banners = () => {
   const { data: banners } = useBannerQuery();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  // TODO 배너 추가 모달
+
   if (!banners) {
     return null;
   }

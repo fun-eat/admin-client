@@ -10,7 +10,7 @@ interface BannerRowProps {
 const BannerRow = ({ banner }: BannerRowProps) => {
   const { id, image, link } = banner;
 
-  // TODO
+  // TODO 배너 삭제 클릭 이벤트
 
   return (
     <tr>
@@ -24,11 +24,7 @@ const BannerRow = ({ banner }: BannerRowProps) => {
         </a>
       </td>
       <td className={td['center']}>
-        <button
-          type='button'
-          className={deleteButton}
-          onClick={() => console.log('a')}
-        >
+        <button type='button' className={deleteButton}>
           삭제
         </button>
       </td>
