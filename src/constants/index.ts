@@ -1,14 +1,18 @@
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+export const API_BASE_URL = import.meta.env.PROD
+  ? import.meta.env.VITE_API_BASE_URL
+  : '/api/admin';
 
 export const ROUTE = {
   HOME: '/',
   PRODUCT: '/products',
   REVIEW: '/reviews',
+  BANNER: '/banners',
 };
 
 export const ROUTES = [
   { path: ROUTE.PRODUCT, name: '상품' },
   { path: ROUTE.REVIEW, name: '리뷰' },
+  { path: ROUTE.BANNER, name: '배너' },
 ];
 
 export interface Column {
