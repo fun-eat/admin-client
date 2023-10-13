@@ -1,15 +1,16 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import Layout from './Layout';
+import AuthLayout from './Layout/AuthLayout';
 import Home from './Home';
 import Products from './Products';
 import Reviews from './Reviews';
+import Banners from './Banners';
 
 import { ROUTE } from '../constants';
 import PageProvider from '../contexts/PageContext';
 import ProductSearchQueryProvider from './Products/contexts/ProductSearchQueryContext';
 import ReviewSearchQueryProvider from './Reviews/contexts/ReviewSearchQueryContext';
-import AuthLayout from './Layout/AuthLayout';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,7 @@ const router = createBrowserRouter([
           </ReviewSearchQueryProvider>
         ),
       },
+      { path: ROUTE.BANNER, element: <Banners /> },
     ],
   },
 ]);
