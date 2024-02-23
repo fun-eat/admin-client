@@ -1,5 +1,5 @@
-import { API_BASE_URL } from '../constants';
 import { convertToQueryString } from '../utils';
+import { API_BASE_URL, API_ENDPOINT } from './constants';
 import { fetchApi } from './fetchApi';
 import { RequestQuery, ResponseData } from './type';
 
@@ -55,15 +55,18 @@ export const getReviews = async ({
     .filter((query) => query.length > 0)
     .join('&')}`;
 
-  const response = await fetchApi(`${API_BASE_URL}/reviews${query}`, {
-    method: 'GET',
-  });
+  const response = await fetchApi(
+    `${API_BASE_URL}${API_ENDPOINT.REVIEW}${query}`,
+    {
+      method: 'GET',
+    }
+  );
   const data: ReviewResponse = await response.json();
   return data;
 };
 
 export const deleteReview = (reviewId: number) => {
-  return fetchApi(`${API_BASE_URL}/reviews/${reviewId}`, {
+  return fetchApi(`${API_BASE_URL}${API_ENDPOINT.REVIEW}/${reviewId}`, {
     method: 'DELETE',
   });
 };

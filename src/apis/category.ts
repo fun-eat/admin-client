@@ -1,4 +1,4 @@
-import { API_BASE_URL } from '../constants';
+import { API_BASE_URL, API_ENDPOINT } from './constants';
 import { fetchApi } from './fetchApi';
 
 export interface CategoryResponse {
@@ -8,7 +8,7 @@ export interface CategoryResponse {
 }
 
 export const getProductCategories = async () => {
-  const response = await fetchApi(`${API_BASE_URL}/categories`, {
+  const response = await fetchApi(`${API_BASE_URL}${API_ENDPOINT.CATEGORY}`, {
     method: 'GET',
   });
   const data: CategoryResponse[] = await response.json();
