@@ -1,6 +1,5 @@
+import { API_BASE_URL, API_ENDPOINT } from './constants';
 import { fetchApi } from './fetchApi';
-
-import { API_BASE_URL } from '../constants';
 
 export interface LoginRequestBody {
   id: string;
@@ -8,15 +7,18 @@ export interface LoginRequestBody {
 }
 
 export const getLogin = async () => {
-  const response = await fetchApi(`${API_BASE_URL}/logged-check`, {
-    method: 'GET',
-  });
+  const response = await fetchApi(
+    `${API_BASE_URL}${API_ENDPOINT.LOGGED_CHECK}`,
+    {
+      method: 'GET',
+    }
+  );
   const data: true = await response.json();
   return data;
 };
 
 export const postLogin = (body: LoginRequestBody) => {
-  return fetchApi(`${API_BASE_URL}/login`, {
+  return fetchApi(`${API_BASE_URL}${API_ENDPOINT.LOGIN}`, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {

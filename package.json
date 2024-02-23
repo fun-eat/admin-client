@@ -5,9 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "setup:netlify": "echo '/* /index.html 200' | cat > dist/_redirects",
-    "build:dev": "tsc && vite build --mode development && yarn setup:netlify",
-    "build:prod": "tsc && vite build --mode production && yarn setup:netlify",
+    "build": "tsc && vite build --mode production",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
